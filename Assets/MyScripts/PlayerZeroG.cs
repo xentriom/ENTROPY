@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using System.ComponentModel.Design.Serialization;
 using Cinemachine;
 using UnityEngine.UI;
+using TMPro;
 using Microsoft.Unity.VisualStudio.Editor;
 
 
@@ -32,22 +33,34 @@ public class PlayerZeroG : MonoBehaviour
     [SerializeField, Range(0.001f, 0.999f)]
     private float leftRightGlideReduction = 0.111f;
 
+    [Header("== Grabbing Settings ==")]
+    // Grabbing mechanic variables
+    private bool isGrabbing = false;
+    private Transform grabbedBar;
+    [SerializeField]
+    private LayerMask barLayer; // Set a specific layer containing bars to grab onto
+    [SerializeField]
+    private float grabRange = 3f; // Range within which the player can grab bars
+    [SerializeField]
+    private float grabPadding = 50f;
     //Propel off bar 
     [SerializeField]
     private float propelThrust = 100f;
     [SerializeField]
-    private float propelUpThrust = 50f;
-    [SerializeField]
     private float propelStrafeThrust = 50f;
-
     private float glide = 0f;
     private float verticalGlide = 0f;
     private float horizontalGlide = 0f;
 
-    private Camera mainCam;
-
+    [Header("== UI Settings ==")]
     [SerializeField]
-    Rigidbody rb;
+    private Rigidbody rb;
+    [SerializeField]
+    private TextMeshProUGUI grabUIText;
+    [Header("== Camera/Body Refernces ==")]
+    private Cinemachine.CinemachinePOV pov;
+    private Camera mainCam;
+    private bool showTutorialMessages = true;
 
     //Variables for camera turn and UI interaction
     [SerializeField]
@@ -56,41 +69,38 @@ public class PlayerZeroG : MonoBehaviour
     private Cinemachine.CinemachineVirtualCamera vCam;
     [SerializeField]
     private UnityEngine.UI.Image crosshair;
-
-    private Cinemachine.CinemachinePOV pov;
-
-    float horizontalMax;
-    float horizontalMin;
-    float verticalMax;
-    float verticalMin;
+    //FOV references
+    private float horizontalMax;
+    private float horizontalMin;
+    private float verticalMax;
+    private float verticalMin;
 
 
     //Input Values
     public InputActionReference grab;
-
     private float thrust1D;
     private float upDown1D;
     private float strafe1D;
     private float roll1D;
     private Vector2 pitchYaw;
 
-    // Grabbing mechanic variables
-    private bool isGrabbing = false;
-    private Transform grabbedBar;
-    [SerializeField] 
-    private LayerMask barLayer; // Set a specific layer for bars to grab onto
-    [SerializeField] 
-    private float grabRange = 3f; // Range within which the player can grab bars
+    // Track if the movement keys were released
+    private bool movementKeysReleased;
 
-    //IK stuff
-    [SerializeField]
-    IKScript playerIK;
+    //Properties
+    //this property allows showTutorialMessages to be assigned outside of the script. Needed for the tutorial mission
+    public bool ShowTurorialMessages
+    {
+        get { return showTutorialMessages; }
+        set { showTutorialMessages = value; }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        //lock the mouse to the viewport
         Cursor.lockState = CursorLockMode.Locked;
+
         rb.useGravity = false;
         mainCam = Camera.main;
 
@@ -107,37 +117,42 @@ public class PlayerZeroG : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        HandleMovement();
-
         // Get the current horizontal and vertical axis values
         float horizontalAxis = pov.m_HorizontalAxis.Value;
         float verticalAxis = pov.m_VerticalAxis.Value;
 
-        // Check if the player reaches horizontal limits and rotate the mesh accordingly
-        if (horizontalAxis >= horizontalMax - 1.0f || horizontalAxis <= horizontalMin + 1.0f)
+        if (!isGrabbing)
         {
-            RotateMesh(characterPivot.transform.up, horizontalAxis, horizontalMax, horizontalMin, rotateSpeedHorizontal);
+            //handle how the player moves in open space
+            HandleFreeMovement();
+
+            // Check if the player reaches horizontal limits and rotate the mesh accordingly
+            if (horizontalAxis >= horizontalMax - 1.0f || horizontalAxis <= horizontalMin + 1.0f)
+            {
+                RotateMesh(characterPivot.transform.up, horizontalAxis, horizontalMax, horizontalMin, rotateSpeedHorizontal);
+            }
+
+            // Check if the player reaches vertical limits and rotate the mesh accordingly
+            if (verticalAxis >= verticalMax - 1.0f || verticalAxis <= verticalMin + 1.0f)
+            {
+                RotateMesh(characterPivot.transform.right, verticalAxis, verticalMax, verticalMin, rotateSpeedVertical);
+            }
+        }
+        else if (isGrabbing)
+        {
+            HandleGrabMovement(horizontalAxis, verticalAxis);
         }
 
-        // Check if the player reaches vertical limits and rotate the mesh accordingly
-        if (verticalAxis >= verticalMax - 1.0f || verticalAxis <= verticalMin + 1.0f)
-        {
-            RotateMesh(characterPivot.transform.right, verticalAxis, verticalMax, verticalMin, rotateSpeedVertical);
-        }
+        GrabUIText();
     }
 
     //This method will handle all inputs and how they make the ship move
-    private void HandleMovement()
+    private void HandleFreeMovement()
     {
-        // Get the current horizontal and vertical axis values for the viewport
-        float horizontalAxis = pov.m_HorizontalAxis.Value;
-        float verticalAxis = pov.m_VerticalAxis.Value;
-
         //Roll
         //Vector3.back establishes we are rotating on the z-axis
         //Multiplying these together is equivalent to combining the forces
         rb.AddTorque(-characterPivot.transform.forward * roll1D * rollTorque * Time.deltaTime);
-
 
         // Thrust Forward (propulsion with cooldown)
         if (thrust1D > 0.1f || thrust1D < -0.1f)
@@ -181,24 +196,27 @@ public class PlayerZeroG : MonoBehaviour
             //every frame glide will be reduced until it is zero
             horizontalGlide *= leftRightGlideReduction;
         }
+    }
 
-
+    private void HandleGrabMovement(float horizontalAxisPos, float verticalAxisPos)
+    {
         //Propel off bar logic
         if (isGrabbing)
         {
-            rb.isKinematic = false;
+            // Check if the player reaches horizontal limits and rotate the mesh accordingly
+            if (horizontalAxisPos >= horizontalMax - 1.0f || horizontalAxisPos <= horizontalMin + 1.0f)
+            {
+                //allow to look around
+                RotateMesh(characterPivot.transform.up, horizontalAxisPos, horizontalMax, horizontalMin, rotateSpeedHorizontal);
+            }
 
-            //check for WASD interaction to propel
             PropelOffBar();
-            pov.m_HorizontalAxis.m_MaxValue = 180;
-            pov.m_HorizontalAxis.m_MinValue = -180;
         }
         else if (!isGrabbing)
         {
             pov.m_HorizontalAxis.m_MaxValue = horizontalMax;
             pov.m_HorizontalAxis.m_MinValue = horizontalMin;
         }
-
     }
 
     private void RotateMesh(Vector3 rotationAxis, float axisValue, float maxAxis, float minAxis, float rotateSpeed)
@@ -223,31 +241,63 @@ public class PlayerZeroG : MonoBehaviour
         // Get the position of the crosshair in screen space
         Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(null, crosshair.rectTransform.position);
 
-        Ray ray = mainCam.ScreenPointToRay(screenPoint);
-        RaycastHit hit;
+        // Apply padding to the screen point
+        float screenWidth = Screen.width;
+        float screenHeight = Screen.height;
 
-        if (Physics.Raycast(ray, out hit, grabRange, barLayer))
+        Vector2 paddedMin = new Vector2(screenPoint.x - grabPadding, screenPoint.y - grabPadding);
+        Vector2 paddedMax = new Vector2(screenPoint.x + grabPadding, screenPoint.y + grabPadding);
+
+        for(float x = paddedMin.x; x < paddedMax.x; x += grabPadding / 2)
         {
-            Debug.Log("Raycast hit: " + hit.transform.name); // Debug the hit
-
-            // Check if the object has the "Grabbable" tag
-            if (hit.transform.CompareTag("Grabbable"))
+            for(float y = paddedMin.y; y < paddedMax.y; y += grabPadding / 2)
             {
-                grabbedBar = hit.transform;
-                isGrabbing = true;
-                rb.isKinematic = true; // Disable physics while grabbing
-                Debug.Log("Grabbing the handle: " + grabbedBar.name);
+                Ray ray = mainCam.ScreenPointToRay(new Vector3(x, y, 0));
+                RaycastHit hit;
 
-                // Set the IK target for the right hand
-                playerIK.SetRightHandTarget(grabbedBar);
-                playerIK.SetRightHandWeight(1f); // Full weight while grabbing
-                Debug.Log("Grabbing the handle: " + grabbedBar.name);
+                if (Physics.Raycast(ray, out hit, grabRange, barLayer))
+                {
+                    Debug.Log("Raycast hit: " + hit.transform.name); // Debug the hit
+
+                    // Check if the object has the "Grabbable" tag
+                    if (hit.transform.CompareTag("Grabbable"))
+                    {
+                        grabbedBar = hit.transform;
+                        isGrabbing = true;
+
+                        // Stop movement by reducing velocity and angular velocity
+                        rb.velocity = rb.velocity * 0.1f;  // Reduce velocity to 10% of its current value
+                        rb.angularVelocity = Vector3.zero;  // Stop rotation completely
+
+                        Debug.Log("Grabbing the handle: " + grabbedBar.name);
+                        return;
+                    }
+                }
             }
         }
-        else
+        Debug.Log("Raycast did not hit anything");
+    }
+
+    private bool IsInRangeofBar()
+    {
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(null, crosshair.rectTransform.position);
+        float screenWidth = Screen.width;
+        float screenHeight = Screen.height;
+        Vector2 paddedMin = new Vector2(screenPoint.x - grabPadding, screenPoint.y - grabPadding);
+        Vector2 paddedMax = new Vector2(screenPoint.x + grabPadding, screenPoint.y + grabPadding);
+
+        for (float x = paddedMin.x; x < paddedMax.x; x += grabPadding / 2)
         {
-            Debug.Log("Raycast did not hit anything");
+            for (float y = paddedMin.y; y < paddedMax.y; y += grabPadding / 2)
+            {
+                Ray ray = mainCam.ScreenPointToRay(new Vector3(x, y, 0));
+                if (Physics.Raycast(ray, grabRange, barLayer))
+                {
+                    return true;
+                }
+            }
         }
+        return false;
     }
 
     // Release the bar and enable movement again
@@ -255,44 +305,74 @@ public class PlayerZeroG : MonoBehaviour
     {
         isGrabbing = false;
         grabbedBar = null;
-        rb.isKinematic = false; // Re-enable physics
         Debug.Log("Released the handle");
 
-        // Reset IK weight to 0
-        playerIK.SetRightHandWeight(0f);
+    }
+
+    private void GrabUIText()
+    {
+        if (showTutorialMessages)
+        {
+            if (isGrabbing)
+            {
+                grabUIText.text = "use 'WASD' to propel forwards, back, left, right";
+            }
+            else if (IsInRangeofBar() && !isGrabbing)
+            { 
+                grabUIText.text = "press and hold 'Right Mouse Button' to grab and hold onto";
+            }
+            else if(!isGrabbing && !IsInRangeofBar())
+            {
+                grabUIText.text = null;
+            }
+        }
+        else if (!showTutorialMessages)
+        {
+            return;
+        }
     }
 
     //Player uses WASD to propel themselves faster, only while currently grabbing a bar
     private void PropelOffBar()
     {
+        //if the player is grabbing and no movement buttons are currently being pressed
         if(isGrabbing)
         {
+            // Check if no movement buttons are currently being pressed
+            bool isThrusting = Mathf.Abs(thrust1D) > 0.1f;
+            bool isStrafing = Mathf.Abs(strafe1D) > 0.1f;
 
-            Vector3 propelDirection = Vector3.zero;
-
-            if (thrust1D > 0.1f || thrust1D < -0.1f)
+            if(movementKeysReleased && (isThrusting || isStrafing))
             {
-                ReleaseBar();
-                propelDirection += mainCam.transform.forward * thrust1D * propelThrust;
-                Debug.Log("Propelled forward or back");
+                //initialize a vector 3 for the propel direction
+                Vector3 propelDirection = Vector3.zero;
 
-                // Adjust IK weight to 0.5 (or any value you like) while pulling away
-                playerIK.SetRightHandWeight(0.5f);
+                //if W or S are pressed
+                if (isThrusting)
+                {
+                    //release the bar and calculate the vector to propel based on the forward look
+                    ReleaseBar();
+                    propelDirection += mainCam.transform.forward * thrust1D * propelThrust;
+                    Debug.Log("Propelled forward or back");
+                }
+                //if A or D are pressed
+                else if (isStrafing)
+                {
+                    //release the bar and calculate the vector to propel based on the right look
+                    ReleaseBar();
+                    propelDirection += mainCam.transform.right * strafe1D * propelStrafeThrust;
+                    Debug.Log("Propelled right or left");
+                }
+                //add the propel force to the rigid body
+                rb.AddForce(propelDirection * Time.deltaTime);
+                // Set the flag to false since keys are now pressed
+                movementKeysReleased = false;
             }
-            else if (upDown1D > 0.1F || upDown1D < -0.1f)
+            // Update the flag if no movement keys are pressed
+            else if (!isThrusting && !isStrafing)
             {
-                ReleaseBar();
-                propelDirection += mainCam.transform.up * upDown1D * propelUpThrust;
-                Debug.Log("Propelled up or down");
+                movementKeysReleased = true;
             }
-            else if (strafe1D > 0.1f || strafe1D < -0.1f)
-            {
-                ReleaseBar();
-                propelDirection += mainCam.transform.right * strafe1D * propelStrafeThrust;
-                Debug.Log("Propelled right or left");
-            }
-
-            rb.AddForce(propelDirection * Time.deltaTime);
         }
     }
 
@@ -309,6 +389,33 @@ public class PlayerZeroG : MonoBehaviour
             pov.m_HorizontalAxis.m_MinValue = horizontalMin;
         }
     }
+
+    void OnDrawGizmos()
+    {
+        // Visualize the crosshair padding as a box in front of the camera
+        if (mainCam != null)
+        {
+            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(null, crosshair.rectTransform.position);
+
+            // Define padded bounds
+            float screenWidth = Screen.width;
+            float screenHeight = Screen.height;
+            Vector2 paddedMin = new Vector2(screenPoint.x - grabPadding, screenPoint.y - grabPadding);
+            Vector2 paddedMax = new Vector2(screenPoint.x + grabPadding, screenPoint.y + grabPadding);
+
+            // Draw a box at the grab range with padding
+            Gizmos.color = Color.green;
+            for (float x = paddedMin.x; x <= paddedMax.x; x += grabPadding / 2)
+            {
+                for (float y = paddedMin.y; y <= paddedMax.y; y += grabPadding / 2)
+                {
+                    Ray ray = mainCam.ScreenPointToRay(new Vector3(x, y, 0));
+                    Gizmos.DrawRay(ray.origin, ray.direction * grabRange);
+                }
+            }
+        }
+    }
+
     #region Input Methods
     //when we press the buttons on the keyboard or controller these methods pass the buttons through to read the values
     //MUST MANUALLY SET THE CONNECTIONS IN THE EVENTS PANEL ONCE ADDED A PLAYER INPUT COMPONENT
