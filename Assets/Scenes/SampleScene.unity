@@ -1812,6 +1812,7 @@ MonoBehaviour:
   dialogueTextUI: {fileID: 397088199}
   audioSource: {fileID: 42302366}
   typewriterSpeed: 0.08
+  doorObject: {fileID: 1802984283}
 --- !u!1 &501668367
 GameObject:
   m_ObjectHideFlags: 0
@@ -5461,6 +5462,7 @@ MonoBehaviour:
   DoorUI: {fileID: 900941002}
   speed: 0.1
   target: {fileID: 162829977}
+  dialogueComplete: 0
 --- !u!114 &1802984290
 MonoBehaviour:
   m_ObjectHideFlags: 0

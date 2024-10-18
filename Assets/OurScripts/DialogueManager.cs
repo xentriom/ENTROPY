@@ -31,6 +31,8 @@ public class DialogueManager : MonoBehaviour
     private int currentDialogueIndex = 0;
     private int currentSequenceIndex = -1;
 
+    public GameObject doorObject;
+
     private void Start()
     {
         // Hide dialogue canvas
@@ -89,6 +91,9 @@ public class DialogueManager : MonoBehaviour
 
             currentDialogueIndex++;
         }
+
+        // dialogue over -> inform the door to be accessable
+        doorObject.GetComponent<DoorHandler>().dialogueComplete = true;
 
         dialogueCanvas.enabled = false;
     }

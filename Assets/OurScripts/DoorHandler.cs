@@ -8,13 +8,16 @@ using UnityEngine.Jobs;
 public class DoorHandler : MonoBehaviour
 {
     public GameObject DoorUI = null;
+    public bool dialogueComplete = false;
     private bool isOpen = false;
+    private bool inArea = false;
   
 
     public float speed = 1.0f;
     private Transform current;
     public Transform target;
     private float sinTime;
+
    
     // Start is called before the first frame update
     void Start()
@@ -27,9 +30,10 @@ public class DoorHandler : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+      
         if (!isOpen && other.tag == "Player")
         {
-            DoorUI.SetActive(true);
+            inArea = true;
         }
    
         
@@ -40,12 +44,17 @@ public class DoorHandler : MonoBehaviour
         if (other.tag == "Player")
         {
             DoorUI.SetActive(false);
+            inArea = false;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (dialogueComplete && inArea && DoorUI.active == false)
+        {
+            DoorUI.SetActive(true);
+        }
 
         if (isOpen)
         {
@@ -70,7 +79,8 @@ public class DoorHandler : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if(!isOpen && DoorUI.activeInHierarchy)
+        // if UI is active you can press button
+        if(DoorUI.activeInHierarchy)
         {
             isOpen = true;
 
