@@ -1145,6 +1145,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3347477405345965915, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: grabRange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405345965915, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
       propertyPath: propelThrust
       value: 100000
       objectReference: {fileID: 0}
@@ -1155,6 +1159,10 @@ PrefabInstance:
     - target: {fileID: 3347477405345965915, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
       propertyPath: propelStrafeThrust
       value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405345965915, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: rotateSpeedVertical
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 3347477405345965916, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
       propertyPath: m_Name

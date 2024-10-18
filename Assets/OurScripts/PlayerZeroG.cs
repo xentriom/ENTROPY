@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -98,6 +98,7 @@ public class PlayerZeroG : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         //lock the mouse to the viewport
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -313,18 +314,22 @@ public class PlayerZeroG : MonoBehaviour
     {
         if (showTutorialMessages)
         {
-            if (isGrabbing)
+            if (!isGrabbing && !IsInRangeofBar() && rb.velocity == Vector3.zero)
+            {
+                grabUIText.text = "use 'WASD' to move forwards, back, left, right | use 'Spacebar' and 'C' key to move up and down";
+            }
+            else if (isGrabbing)
             {
                 grabUIText.text = "use 'WASD' to propel forwards, back, left, right";
             }
             else if (IsInRangeofBar() && !isGrabbing)
-            { 
+            {
                 grabUIText.text = "press and hold 'Right Mouse Button' to grab and hold onto";
             }
-            else if(!isGrabbing && !IsInRangeofBar())
+            else if (!isGrabbing && !IsInRangeofBar())
             {
                 grabUIText.text = null;
-            }
+            } 
         }
         else if (!showTutorialMessages)
         {
