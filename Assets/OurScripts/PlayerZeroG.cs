@@ -6,7 +6,7 @@ using System.ComponentModel.Design.Serialization;
 using Cinemachine;
 using UnityEngine.UI;
 using TMPro;
-using Microsoft.Unity.VisualStudio.Editor;
+//using Microsoft.Unity.VisualStudio.Editor;
 
 
 [RequireComponent (typeof(Rigidbody))]
