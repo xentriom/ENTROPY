@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,8 @@ public class DialogueManager : MonoBehaviour
     public AudioSource audioSource;
     public float typewriterSpeed = 0.05f;
 
+    public event Action OnDialogueEnd;
+
     private int currentDialogueIndex = 0;
     private int currentSequenceIndex = -1;
 
@@ -37,9 +40,6 @@ public class DialogueManager : MonoBehaviour
     {
         // Hide dialogue canvas
         dialogueCanvas.enabled = false;
-
-        // Start the first dialogue sequence
-        StartDialogueSequence(0);
     }
 
     // Method to start a specific dialogue sequence
@@ -92,10 +92,9 @@ public class DialogueManager : MonoBehaviour
             currentDialogueIndex++;
         }
 
-        // dialogue over -> inform the door to be accessable
-        doorObject.GetComponent<DoorHandler>().dialogueComplete = true;
-
+        // hide canvas and invoke event
         dialogueCanvas.enabled = false;
+        OnDialogueEnd?.Invoke();
     }
 
     // Typewriter effect for displaying dialogue
@@ -111,4 +110,7 @@ public class DialogueManager : MonoBehaviour
 }
 
 // Example of starting a dialogue sequence outside of the DialogueManager script
-// FindObjectOfType<DialogueManager>().StartDialogueSequence(int);
+// private DialogueManager dialogueManager;
+// dialogueManager = FindObjectOfType<DialogueManager>();
+// dialogueManager.StartDialogueSequence(int);
+// dialogueManager.OnDialogueEnd += functionToCall;

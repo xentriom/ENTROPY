@@ -18,13 +18,17 @@ public class DoorHandler : MonoBehaviour
     public Transform target;
     private float sinTime;
 
+    private DialogueManager dialogueManager;
+
    
     // Start is called before the first frame update
     void Start()
     {
+        dialogueManager = FindObjectOfType<DialogueManager>();
+        dialogueManager.OnDialogueEnd += DialogueEnd;
         DoorUI.SetActive(false);
         current = transform;
-
+        dialogueManager.StartDialogueSequence(0);
     }
 
 
@@ -85,5 +89,10 @@ public class DoorHandler : MonoBehaviour
             isOpen = true;
 
         }
+    }
+
+    private void DialogueEnd()
+    {
+        dialogueComplete = true;
     }
 }
