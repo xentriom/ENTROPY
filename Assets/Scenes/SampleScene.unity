@@ -1756,6 +1756,56 @@ MonoBehaviour:
       audioClip: {fileID: 0}
       toContinue: 1
       seconds: 0.5
+    - characterName: AI
+      dialogueText: Because of this I can not make any repairs. I require you to
+        fix the reactor.
+      audioClip: {fileID: 0}
+      toContinue: 1
+      seconds: 0.5
+    - characterName: AI
+      dialogueText: "As you have already realized, our ship\u2019s artificial gravity
+        has also been manipulated. Therefore\u202C \u202D you will need to utilize
+        your preliminary zero gravity training to navigate the corridors."
+      audioClip: {fileID: 0}
+      toContinue: 1
+      seconds: 0.5
+    - characterName: AI
+      dialogueText: "knowing\u202C \u202D that training was some time ago and some
+        lessons may have been forgotten; I will now put you\u202C \u202D through
+        a few exercises so you may be prepared."
+      audioClip: {fileID: 0}
+      toContinue: 1
+      seconds: 0.5
+    - characterName: AI
+      dialogueText: Please grab onto the safety railing, directly behind you on the
+        wall. It will be yellow.
+      audioClip: {fileID: 0}
+      toContinue: 1
+      seconds: 2
+    - characterName: AI
+      dialogueText: "now, using the bar as a point of contact, aim your body and
+        propel yourself through the\u202C \u202D chamber."
+      audioClip: {fileID: 0}
+      toContinue: 1
+      seconds: 2
+    - characterName: AI
+      dialogueText: great work, My motion sensors detect that you were effective
+        in launching yourself.
+      audioClip: {fileID: 0}
+      toContinue: 1
+      seconds: 0.5
+    - characterName: AI
+      dialogueText: "However,\u202C \u202D for effective traversal, you will need
+        to aim your movements more precisely or you will be stuck\u202C \u202D floating
+        aimlessly. Leaving you vulnerable."
+      audioClip: {fileID: 0}
+      toContinue: 1
+      seconds: 2
+    - characterName: AI
+      dialogueText: Please grab onto another bar in the chamber.
+      audioClip: {fileID: 0}
+      toContinue: 1
+      seconds: 0.5
   - dialogues:
     - characterName: AI
       dialogueText: Good, you're finally awake.
@@ -1811,7 +1861,7 @@ MonoBehaviour:
   nameTextUI: {fileID: 1878448200}
   dialogueTextUI: {fileID: 397088199}
   audioSource: {fileID: 42302366}
-  typewriterSpeed: 0.08
+  typewriterSpeed: 0.04
   doorObject: {fileID: 1802984283}
 --- !u!1 &501668367
 GameObject:
@@ -5460,9 +5510,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoorUI: {fileID: 900941002}
+  dialogueComplete: 0
   speed: 0.1
   target: {fileID: 162829977}
-  dialogueComplete: 0
 --- !u!114 &1802984290
 MonoBehaviour:
   m_ObjectHideFlags: 0
