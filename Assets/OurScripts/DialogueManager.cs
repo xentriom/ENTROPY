@@ -34,8 +34,6 @@ public class DialogueManager : MonoBehaviour
     private int currentDialogueIndex = 0;
     private int currentSequenceIndex = -1;
 
-    public GameObject doorObject;
-
     private void Start()
     {
         // Hide dialogue canvas
@@ -72,7 +70,7 @@ public class DialogueManager : MonoBehaviour
             }
 
             // Display dialogue with typewriter effect
-            yield return StartCoroutine(TypewriterEffect(currentDialogue.dialogueText));
+            yield return StartCoroutine(TypewriterEffect(currentDialogue.dialogueText, currentDialogue.audioClip));
 
             // Wait for audio to finish
             if (currentDialogue.audioClip != null)
@@ -98,9 +96,16 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Typewriter effect for displaying dialogue
-    private IEnumerator TypewriterEffect(string dialogueText)
+    private IEnumerator TypewriterEffect(string dialogueText, AudioClip audioClip)
     {
         dialogueTextUI.text = "";
+        
+        // determine typewriter speed based on audio clip length
+        if (audioClip != null)
+        {
+            typewriterSpeed = audioClip.length / dialogueText.Length;
+        }
+
         foreach (char letter in dialogueText.ToCharArray())
         {
             dialogueTextUI.text += letter;
