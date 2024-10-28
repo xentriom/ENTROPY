@@ -11,7 +11,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI nameTextUI;
     public TextMeshProUGUI dialogueTextUI;
     public AudioSource audioSource;
-    public float typewriterSpeed = 0.04f;
+    public float typewriterSpeed = 0.08f;
 
     // Events and input control
     public event Action OnDialogueEnd;
