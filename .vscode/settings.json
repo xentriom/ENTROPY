@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ENTROPY.sln"
+    "dotnet.defaultSolution": "ENTROPY.sln",
+    "dotnet.preferCSharpExtension": true
 }
