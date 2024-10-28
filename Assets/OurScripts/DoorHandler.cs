@@ -55,7 +55,7 @@ public class DoorHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dialogueComplete && inArea && DoorUI.active == false)
+        if (dialogueComplete && inArea)
         {
             DoorUI.SetActive(true);
         }
@@ -93,6 +93,7 @@ public class DoorHandler : MonoBehaviour
 
     private void DialogueEnd()
     {
+        Debug.Log("Dialogue completed, door can be opened.");
         dialogueComplete = true;
     }
 }

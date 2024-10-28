@@ -1,5 +1,5 @@
 {
-    "name": "PlayerControls",
+    "name": "PlayerController",
     "maps": [
         {
             "name": "PlayerControls",
@@ -368,6 +368,44 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Dialogue",
+            "id": "d4b50151-7453-441c-9af5-a52cbafcc96b",
+            "actions": [
+                {
+                    "name": "ContinueDialogue",
+                    "type": "Button",
+                    "id": "3e01d445-5e95-48de-b355-6b2149cba8a0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "01a5b945-c1db-4875-81c1-f93be5e82957",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ContinueDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9119be31-6649-4ff7-a8d6-eb728be1ffc5",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ContinueDialogue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

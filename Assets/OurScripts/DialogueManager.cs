@@ -1,46 +1,55 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-    [System.Serializable]
-    public class DialogueSequence
-    {
-        public Dialogue[] dialogues;
-    }
-
-    [System.Serializable]
-    public class Dialogue
-    {
-        public string characterName;
-        public string dialogueText;
-        public AudioClip audioClip;
-        public bool toContinue;
-        public float seconds;
-    }
-
+    // Dialogue sequences and UI references
     public DialogueSequence[] dialogueSequences;
     public Canvas dialogueCanvas;
     public TextMeshProUGUI nameTextUI;
     public TextMeshProUGUI dialogueTextUI;
     public AudioSource audioSource;
-    public float typewriterSpeed = 0.05f;
+    public float typewriterSpeed = 0.04f;
 
+    // Events and input control
     public event Action OnDialogueEnd;
+    private PlayerController playerController;
 
+    // Dialogue sequence tracking
     private int currentDialogueIndex = 0;
     private int currentSequenceIndex = -1;
+    private bool isSkipping = false;
+
+    // Initialization
+    private void Awake()
+    {
+        playerController = new PlayerController();
+    }
+
+    private void OnEnable() => playerController.Dialogue.ContinueDialogue.Enable();
+    private void OnDisable() => playerController.Dialogue.ContinueDialogue.Disable();
 
     private void Start()
     {
-        // Hide dialogue canvas
+        // Hide dialogue canvas on start
         dialogueCanvas.enabled = false;
     }
 
-    // Method to start a specific dialogue sequence
+    private void Update()
+    {
+        // Check for skip input each frame
+        if (playerController.Dialogue.ContinueDialogue.triggered)
+        {
+            isSkipping = true;
+        }
+    }
+
+    /// <summary>
+    /// Starts a dialogue sequence by index
+    /// </summary>
+    /// <param name="sequenceIndex">The sequence to start</param>
     public void StartDialogueSequence(int sequenceIndex)
     {
         if (sequenceIndex < dialogueSequences.Length)
@@ -52,17 +61,21 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // Display dialogue for the current sequence
+    /// <summary>
+    /// Displays the dialogue sequence on the UI
+    /// </summary>
+    /// <returns>IEnumerator for coroutine control</returns>
     private IEnumerator DisplayDialogue()
     {
         DialogueSequence currentSequence = dialogueSequences[currentSequenceIndex];
 
         while (currentDialogueIndex < currentSequence.dialogues.Length)
         {
+            // Get current dialogue and set name
             Dialogue currentDialogue = currentSequence.dialogues[currentDialogueIndex];
-
-            // Set character name and play audio
             nameTextUI.text = currentDialogue.characterName;
+
+            // Play audio clip if available
             if (currentDialogue.audioClip != null)
             {
                 audioSource.clip = currentDialogue.audioClip;
@@ -72,35 +85,31 @@ public class DialogueManager : MonoBehaviour
             // Display dialogue with typewriter effect
             yield return StartCoroutine(TypewriterEffect(currentDialogue.dialogueText, currentDialogue.audioClip));
 
-            // Wait for audio to finish
-            if (currentDialogue.audioClip != null)
-                yield return new WaitWhile(() => audioSource.isPlaying);
+            // Grace period for skipping
+            yield return new WaitForSeconds(0.5f);
+            yield return new WaitUntil(() => playerController.Dialogue.ContinueDialogue.triggered);
 
-            // Automatically continue
-            if (currentDialogue.toContinue)
-            {
-                yield return new WaitForSeconds(currentDialogue.seconds);
-            }
-            else
-            {
-                // Wait for player input 
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
-            }
-
+            if (audioSource.isPlaying) audioSource.Stop();
             currentDialogueIndex++;
         }
 
-        // hide canvas and invoke event
+        // Hide canvas and invoke end event
         dialogueCanvas.enabled = false;
         OnDialogueEnd?.Invoke();
     }
 
-    // Typewriter effect for displaying dialogue
+    /// <summary>
+    /// Displays the dialogue text using a typewritter effect
+    /// </summary>
+    /// <param name="dialogueText">The text to display with the effect</param>
+    /// <param name="audioClip">Audio clip to set typewritting speed</param>
+    /// <returns>IEnumerator for coroutine control</returns>
     private IEnumerator TypewriterEffect(string dialogueText, AudioClip audioClip)
     {
         dialogueTextUI.text = "";
-        
-        // determine typewriter speed based on audio clip length
+        isSkipping = false;
+
+        // Determine typewriter speed based on audio clip length if available
         if (audioClip != null)
         {
             typewriterSpeed = audioClip.length / dialogueText.Length;
@@ -110,6 +119,13 @@ public class DialogueManager : MonoBehaviour
         {
             dialogueTextUI.text += letter;
             yield return new WaitForSeconds(typewriterSpeed);
+
+            if (isSkipping)
+            {
+                dialogueTextUI.text = dialogueText;
+                isSkipping = false;
+                yield break;
+            }
         }
     }
 }
@@ -118,4 +134,10 @@ public class DialogueManager : MonoBehaviour
 // private DialogueManager dialogueManager;
 // dialogueManager = FindObjectOfType<DialogueManager>();
 // dialogueManager.StartDialogueSequence(int);
-// dialogueManager.OnDialogueEnd += functionToCall;
+// dialogueManager.OnDialogueEnd += exampleFunction;
+//
+// private void exampleFunction()
+// {
+//     Debug.Log("Dialogue sequence ended");
+//     // Additional logic here (open doors, tp alien, blow up map, etc.)
+// }
