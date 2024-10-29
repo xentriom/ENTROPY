@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 42302365}
   - component: {fileID: 42302366}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: DialogueAudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1538,7 +1538,7 @@ GameObject:
   - component: {fileID: 481410330}
   - component: {fileID: 481410331}
   m_Layer: 0
-  m_Name: Dialogue Manager
+  m_Name: DialogueManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2766,7 +2766,7 @@ GameObject:
   - component: {fileID: 867723107}
   - component: {fileID: 867723106}
   m_Layer: 5
-  m_Name: Dialogue Canvas
+  m_Name: DialogueCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4852,7 +4852,7 @@ GameObject:
   - component: {fileID: 1557976801}
   - component: {fileID: 1557976800}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: DialoguePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
