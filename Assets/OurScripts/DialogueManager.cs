@@ -112,13 +112,12 @@ public class DialogueManager : MonoBehaviour
         // Determine typewriter speed based on audio clip length if available
         if (audioClip != null)
         {
-            typewriterSpeed = audioClip.length / dialogueText.Length;
+            typewriterSpeed = audioClip.length / dialogueText.Length - 0.02f;
         }
 
         foreach (char letter in dialogueText.ToCharArray())
         {
             dialogueTextUI.text += letter;
-            yield return new WaitForSeconds(typewriterSpeed);
 
             if (isSkipping)
             {
@@ -126,6 +125,8 @@ public class DialogueManager : MonoBehaviour
                 isSkipping = false;
                 yield break;
             }
+
+            yield return new WaitForSeconds(typewriterSpeed);
         }
     }
 }
