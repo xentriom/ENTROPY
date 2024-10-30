@@ -36,11 +36,7 @@ MonoBehaviour:
     value: 0
   color:
     overrideState: 1
-    value:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    value: {r: 1, g: 1, b: 1, a: 1}
   fastMode:
     overrideState: 1
     value: 0
@@ -75,11 +71,7 @@ MonoBehaviour:
     value: 1.07
   color:
     overrideState: 1
-    value:
-      r: 0
-      g: 0
-      b: 0
-      a: 1
+    value: {r: 0, g: 0, b: 0, a: 1}
   ambientOnly:
     overrideState: 1
     value: 1
@@ -120,6 +112,48 @@ MonoBehaviour:
   - {fileID: -8605237721719205311}
   - {fileID: 8761833964356324981}
   - {fileID: -1308771166076313897}
+  - {fileID: 161093975040776615}
+--- !u!114 &161093975040776615
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ccac7a7b193e24b838948044c40846, type: 3}
+  m_Name: RetroPostProcessEffect
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  UsesFixedResolution:
+    overrideState: 0
+    value: 1
+  PixelScale:
+    overrideState: 0
+    value: 4
+  FixedVerticalResolution:
+    overrideState: 0
+    value: 431
+  ColorDepth:
+    overrideState: 0
+    value: 0.15
+  DitherPattern:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 0
+  DitherPatternScale:
+    overrideState: 0
+    value: 1
+  DitherThreshold:
+    overrideState: 0
+    value: 0.75
+  DitherIntensity:
+    overrideState: 0
+    value: 0.15
 --- !u!114 &8761833964356324981
 MonoBehaviour:
   m_ObjectHideFlags: 3
