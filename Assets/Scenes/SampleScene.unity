@@ -1573,24 +1573,24 @@ MonoBehaviour:
   dialogueSequences:
   - dialogues:
     - characterName: AI
-      dialogueText: Good, you're finally awake.
-      audioClip: {fileID: 0}
-    - characterName: AI
-      dialogueText: I regret to inform you that there is an unlikely crisis regarding
-        the integrity of our ship.
-      audioClip: {fileID: 0}
+      dialogueText: Good, you're finally awake. I regret to inform you that there
+        is an unlikely crisis regarding the integrity of our ship.
+      audioClip: {fileID: 8300000, guid: 3ed0704cc98487f4ea2c3952ba46830b, type: 3}
     - characterName: AI
       dialogueText: My sensors have detected traceable amounts of lethal radiation
         leaking, with the source being that of the ship's compact fusion reactor.
-      audioClip: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 82807066e4683f84dbf80dea12afcc7c, type: 3}
     - characterName: AI
       dialogueText: "They are moderately safe now due to the main cabin\u2019s physical
         distance from the rear of the ship where the reactor is located."
-      audioClip: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 9eacc1a9f145bc240ad08df107e84895, type: 3}
     - characterName: AI
       dialogueText: However, without maintenance, radiation levels will continue
         to rise to super-critical levels, causing the ship to rupture and explode.
-      audioClip: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 617e83ff529c87c4d9cb3ac46f72af00, type: 3}
+    - characterName: AI
+      dialogueText: We will not survive this scenario.
+      audioClip: {fileID: 8300000, guid: 144dbf6076af18b4bba524475cc6d866, type: 3}
     - characterName: AI
       dialogueText: We will not survive this scenario.
       audioClip: {fileID: 0}
