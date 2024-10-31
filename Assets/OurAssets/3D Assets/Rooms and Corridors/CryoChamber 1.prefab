@@ -120,10 +120,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: b231e56786934194ea633207079ab92c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e58cf6add514da749af13872e3cc1873, type: 2}
     - target: {fileID: 919132149155446097, guid: b231e56786934194ea633207079ab92c, type: 3}
       propertyPath: m_Name
       value: CryoCore
@@ -199,10 +195,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: de9e8c356576e66428acb9fbc40b4635, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e58cf6add514da749af13872e3cc1873, type: 2}
     - target: {fileID: 919132149155446097, guid: de9e8c356576e66428acb9fbc40b4635, type: 3}
       propertyPath: m_Name
       value: CryoBase
@@ -278,10 +270,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -270
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 7c521dc29e074364d8b0cd3dc1c959e7, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e58cf6add514da749af13872e3cc1873, type: 2}
     - target: {fileID: 919132149155446097, guid: 7c521dc29e074364d8b0cd3dc1c959e7, type: 3}
       propertyPath: m_Name
       value: CryoGlass
@@ -352,10 +340,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 833b2fd37a5cfdb4a8ed0cbc08e6f225, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e58cf6add514da749af13872e3cc1873, type: 2}
     - target: {fileID: 919132149155446097, guid: 833b2fd37a5cfdb4a8ed0cbc08e6f225, type: 3}
       propertyPath: m_Name
       value: CryoDoorL
@@ -426,10 +410,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: a1de98f2ece498a4d8d10e58fcd98aca, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e58cf6add514da749af13872e3cc1873, type: 2}
     - target: {fileID: 919132149155446097, guid: a1de98f2ece498a4d8d10e58fcd98aca, type: 3}
       propertyPath: m_Name
       value: CryoDoorR
