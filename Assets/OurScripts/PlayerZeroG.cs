@@ -70,10 +70,10 @@ public class PlayerZeroG : MonoBehaviour
     [SerializeField]
     private UnityEngine.UI.Image crosshair;
     //FOV references
-    private float horizontalMax;
-    private float horizontalMin;
-    private float verticalMax;
-    private float verticalMin;
+    private float horizontalMax = 60.0f;
+    private float horizontalMin = -60.0f;
+    private float verticalMax = 70.0f;
+    private float verticalMin = -30.0f;
 
 
     //Input Values
@@ -98,7 +98,6 @@ public class PlayerZeroG : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         //lock the mouse to the viewport
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -108,11 +107,7 @@ public class PlayerZeroG : MonoBehaviour
         // Access the Cinemachine POV component to read axis values
         pov = vCam.GetCinemachineComponent<Cinemachine.CinemachinePOV>();
 
-        // Define the thresholds for axis limits
-        horizontalMax = pov.m_HorizontalAxis.m_MaxValue;
-        horizontalMin = pov.m_HorizontalAxis.m_MinValue;
-        verticalMax = pov.m_VerticalAxis.m_MaxValue;
-        verticalMin = pov.m_VerticalAxis.m_MinValue;
+        rotateSpeedHorizontal = pov.m_HorizontalAxis.m_MaxSpeed;
     }
 
     // Update is called once per frame
@@ -158,9 +153,9 @@ public class PlayerZeroG : MonoBehaviour
         // Thrust Forward (propulsion with cooldown)
         if (thrust1D > 0.1f || thrust1D < -0.1f)
         {
-                float currentThrust = thrust;
-                rb.AddForce(mainCam.transform.forward * thrust1D * currentThrust * Time.deltaTime);
-                glide = thrust;
+            float currentThrust = thrust;
+            rb.AddForce(mainCam.transform.forward * thrust1D * currentThrust * Time.deltaTime);
+            glide = thrust;
         }
         else
         {
@@ -223,12 +218,11 @@ public class PlayerZeroG : MonoBehaviour
     private void RotateMesh(Vector3 rotationAxis, float axisValue, float maxAxis, float minAxis, float rotateSpeed)
     {
 
-        // Rotate when hitting the max limit
-        if (axisValue >= minAxis + 1.0f)
+        // Apply rotational torque with damping
+        if (axisValue >= maxAxis - 1.0f)
         {
             rb.AddTorque(rotationAxis * rotateSpeed * Time.deltaTime);
         }
-        // Rotate when hitting the min limit
         else if (axisValue <= minAxis + 1.0f)
         {
             rb.AddTorque(-rotationAxis * rotateSpeed * Time.deltaTime);
@@ -249,9 +243,9 @@ public class PlayerZeroG : MonoBehaviour
         Vector2 paddedMin = new Vector2(screenPoint.x - grabPadding, screenPoint.y - grabPadding);
         Vector2 paddedMax = new Vector2(screenPoint.x + grabPadding, screenPoint.y + grabPadding);
 
-        for(float x = paddedMin.x; x < paddedMax.x; x += grabPadding / 2)
+        for (float x = paddedMin.x; x < paddedMax.x; x += grabPadding / 2)
         {
-            for(float y = paddedMin.y; y < paddedMax.y; y += grabPadding / 2)
+            for (float y = paddedMin.y; y < paddedMax.y; y += grabPadding / 2)
             {
                 Ray ray = mainCam.ScreenPointToRay(new Vector3(x, y, 0));
                 RaycastHit hit;
@@ -314,22 +308,18 @@ public class PlayerZeroG : MonoBehaviour
     {
         if (showTutorialMessages)
         {
-            if (!isGrabbing && !IsInRangeofBar() && rb.velocity == Vector3.zero)
+            if (isGrabbing)
             {
-                grabUIText.text = "use 'WASD' to move forwards, back, left, right | use 'Spacebar' and 'C' key to move up and down";
-            }
-            else if (isGrabbing)
-            {
-                grabUIText.text = "use 'WASD' to propel forwards, back, left, right";
+                grabUIText.text = "'WASD'";
             }
             else if (IsInRangeofBar() && !isGrabbing)
             {
-                grabUIText.text = "press and hold 'Right Mouse Button' to grab and hold onto";
+                grabUIText.text = "press and hold 'Right Mouse Button'";
             }
             else if (!isGrabbing && !IsInRangeofBar())
             {
                 grabUIText.text = null;
-            } 
+            }
         }
         else if (!showTutorialMessages)
         {
@@ -341,13 +331,13 @@ public class PlayerZeroG : MonoBehaviour
     private void PropelOffBar()
     {
         //if the player is grabbing and no movement buttons are currently being pressed
-        if(isGrabbing)
+        if (isGrabbing)
         {
             // Check if no movement buttons are currently being pressed
             bool isThrusting = Mathf.Abs(thrust1D) > 0.1f;
             bool isStrafing = Mathf.Abs(strafe1D) > 0.1f;
 
-            if(movementKeysReleased && (isThrusting || isStrafing))
+            if (movementKeysReleased && (isThrusting || isStrafing))
             {
                 //initialize a vector 3 for the propel direction
                 Vector3 propelDirection = Vector3.zero;
@@ -388,7 +378,7 @@ public class PlayerZeroG : MonoBehaviour
             pov.m_HorizontalAxis.m_MaxValue = 180;
             pov.m_HorizontalAxis.m_MinValue = -180;
         }
-        else if(!isGrabbing)
+        else if (!isGrabbing)
         {
             pov.m_HorizontalAxis.m_MaxValue = horizontalMax;
             pov.m_HorizontalAxis.m_MinValue = horizontalMin;

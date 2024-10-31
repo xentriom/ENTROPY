@@ -1743,13 +1743,57 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_VerticalAxis.m_MaxSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_VerticalAxis.m_MaxValue
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_VerticalAxis.m_MinValue
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_HorizontalAxis.m_MaxSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_HorizontalAxis.m_MaxValue
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_HorizontalAxis.m_MinValue
+      value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_VerticalRecentering.m_enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_HorizontalRecentering.m_enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_HorizontalRecentering.m_WaitTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_VerticalRecentering.m_RecenteringTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347477405060082543, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+      propertyPath: m_HorizontalRecentering.m_RecenteringTime
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3347477405345965915, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
       propertyPath: thrust
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3347477405345965915, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
       propertyPath: upThrust
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3347477405345965915, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
       propertyPath: grabRange
@@ -1761,7 +1805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3347477405345965915, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
       propertyPath: strafeThrust
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3347477405345965915, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
       propertyPath: propelStrafeThrust
@@ -1769,7 +1813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3347477405345965915, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
       propertyPath: rotateSpeedVertical
-      value: 225
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 3347477405345965916, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
       propertyPath: m_Name
