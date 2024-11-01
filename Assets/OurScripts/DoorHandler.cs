@@ -24,11 +24,10 @@ public class DoorHandler : MonoBehaviour
   
 
     public States states = States.Closed;
-
     public float speed = 1.0f;
-    private Transform current;
-    public Transform target;
     private float sinTime;
+    private Vector3 openPos;
+    private Vector3 closedPos;
 
     private DialogueManager dialogueManager;
 
@@ -38,17 +37,31 @@ public class DoorHandler : MonoBehaviour
     {
         dialogueManager = FindObjectOfType<DialogueManager>();
         dialogueManager.OnDialogueEnd += DialogueEnd;
+
         DoorUI.SetActive(false);
-        current = transform;
+        closedPos = transform.position;
+        Vector3 right = transform.forward * -1;
+        openPos = closedPos + right * 6.0f;
+
+        if (states == States.Open)
+        {
+            transform.position = openPos;
+        }
+
+        
         dialogueManager.StartDialogueSequence(0);
     }
 
 
     void OnTriggerEnter(Collider other)
     {
-      
+
+        Debug.Log(states.ToString());
+
         if (states == States.Closed && other.tag == "Player")
         {
+          
+            DoorUI.SetActive(true);
             inArea = true;
         }
    
@@ -80,13 +93,13 @@ public class DoorHandler : MonoBehaviour
         {
             case States.Opening:
                 {
-                    if (transform.position != target.position)
+                    if (transform.position != openPos)
                     {
                         sinTime += Time.deltaTime * speed;
                         sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                         // sin function
                         float t = 0.5f * Mathf.Sin(sinTime - Mathf.PI / 2f) + 0.5f;
-                        transform.position = Vector3.Lerp(current.position, target.position, t);
+                        transform.position = Vector3.Lerp(closedPos, openPos, t);
                     }
                     else
                     {
@@ -99,20 +112,20 @@ public class DoorHandler : MonoBehaviour
 
             case States.Closing:
                 {
-                    if (transform.position != target.position)
+                    if (transform.position != closedPos)
                     {
                         sinTime += Time.deltaTime * speed;
                         sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                         // sin function
                         float t = 0.5f * Mathf.Sin(sinTime - Mathf.PI / 2f) + 0.5f;
-                        transform.position = Vector3.Lerp(current.position, target.position, t);
+                        transform.position = Vector3.Lerp(openPos, closedPos, t);
                     }
                     else
                     {
-                        states = States.Open;
+                        states = States.Closed;
                     }
 
-                    break;
+                        break;
                 }
 
         }
@@ -126,7 +139,15 @@ public class DoorHandler : MonoBehaviour
         // if UI is active you can press button
         if(DoorUI.activeInHierarchy)
         {
-            states = States.Opening;
+            if (states == States.Open)
+            {
+                states = States.Closing;
+            }
+            else if (states == States.Closed)
+            {
+                states = States.Opening;
+            }
+            
 
         }
     }
