@@ -1293,6 +1293,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107910966}
   m_CullTransparentMesh: 1
+--- !u!1 &122482425 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3347477404618915720, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+  m_PrefabInstance: {fileID: 509105914}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &145636901
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,7 +2219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005748441696529782, guid: 3fd2401afcb26e346904f43d13a14ef1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -35.6
+      value: -68
       objectReference: {fileID: 0}
     - target: {fileID: 4005748441696529782, guid: 3fd2401afcb26e346904f43d13a14ef1, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2939,6 +2944,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8908195036594607982, guid: b4633c3df05d2d040b83d96214dd8543, type: 3}
   m_PrefabInstance: {fileID: 422958599}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &453452238 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3347477403675231413, guid: d5207460744508f4d811f0d7cf0fcb9c, type: 3}
+  m_PrefabInstance: {fileID: 509105914}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &455747177
 GameObject:
   m_ObjectHideFlags: 0
@@ -3175,9 +3185,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleCanvas: {fileID: 1334754954}
-  interactionDistance: 3
+  interactionDistance: 4
   player: {fileID: 321763818}
-  fpsController: {fileID: 0}
+  crosshair: {fileID: 122482425}
+  interactionText: {fileID: 453452238}
 --- !u!1 &471311798
 GameObject:
   m_ObjectHideFlags: 0
@@ -6318,7 +6329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7219883969076042833, guid: f5509c87a8310484288db22a4e638a77, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -50
+      value: -72.8
       objectReference: {fileID: 0}
     - target: {fileID: 7219883969076042833, guid: f5509c87a8310484288db22a4e638a77, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -10761,7 +10772,8 @@ MonoBehaviour:
   - {fileID: 85204699}
   - {fileID: 216522571}
   - {fileID: 1960652157}
-  connectedDoor: {fileID: 0}
+  connectedDoor: {fileID: 1802984283}
+  connectedPanel: {fileID: 469300541}
   maxEnergy: 100
   energySegmentPrefab: {fileID: 7048437698274024873, guid: 3fd2401afcb26e346904f43d13a14ef1, type: 3}
   energyParent: {fileID: 1605772782}
@@ -13708,7 +13720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005748441696529782, guid: 3fd2401afcb26e346904f43d13a14ef1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 26.7
+      value: 57.6
       objectReference: {fileID: 0}
     - target: {fileID: 4005748441696529782, guid: 3fd2401afcb26e346904f43d13a14ef1, type: 3}
       propertyPath: m_AnchoredPosition.y

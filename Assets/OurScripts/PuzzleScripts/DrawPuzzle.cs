@@ -35,6 +35,7 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     private bool puzzleComplete = false;
     private bool doorOpen = false;
     public GameObject connectedDoor;
+    public GameObject connectedPanel;
 
     //energy
     public int maxEnergy;
@@ -453,6 +454,12 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         drawingArea.GetComponent<Image>().color = drawingAreaColor;
     }
 
+    private IEnumerator WaitAndTogglePuzzleOff()
+    {
+        yield return new WaitForSeconds(1f); // Wait for 1 second
+        connectedPanel.GetComponent<TriggerPuzzle>().TogglePuzzle(); // Call your existing method to toggle the puzzle off
+    }
+
     void Update()
     {
         if (puzzleComplete == false)
@@ -497,6 +504,7 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
                     drawingArea.GetComponent<Image>().color = bgColor;
                 }
                 connectedDoor.GetComponent<DoorHandler>().PuzzleComplete();
+                StartCoroutine(WaitAndTogglePuzzleOff());
             }
 
         }
