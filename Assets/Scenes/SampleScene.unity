@@ -13308,6 +13308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoorUI: {fileID: 900941002}
   dialogueComplete: 0
+  states: 0
   speed: 0.1
   target: {fileID: 162829977}
 --- !u!114 &1802984290
@@ -15006,7 +15007,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966780366}
   m_LocalRotation: {x: -0, y: -0, z: -0.21105051, w: 0.97747517}
-  m_LocalPosition: {x: 32.595, y: 6.17, z: 0.01}
+  m_LocalPosition: {x: 32.836, y: 6.17, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2081795635}
