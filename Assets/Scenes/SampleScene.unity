@@ -2929,22 +2929,24 @@ MonoBehaviour:
       dialogueText: We will not survive this scenario.
       audioClip: {fileID: 8300000, guid: 144dbf6076af18b4bba524475cc6d866, type: 3}
     - characterName: AI
-      dialogueText: We will not survive this scenario.
-      audioClip: {fileID: 0}
+      dialogueText: Due to damage to the reactor, our ship is running on auxiliary
+        power,
+      audioClip: {fileID: 8300000, guid: ce6db7fa9423b2142993236bde6b4472, type: 3}
     - characterName: AI
-      dialogueText: Due to damage sustained to the reactor, our ship is currently
-        running on auxiliary power.
-      audioClip: {fileID: 0}
+      dialogueText: keeping the lights on and a few of my primary functions online.
+      audioClip: {fileID: 8300000, guid: c153478d7b2b53a4d8ddfd15c058fd74, type: 3}
     - characterName: AI
-      dialogueText: Keeping only the lights and my communication with you running.
-      audioClip: {fileID: 0}
+      dialogueText: 'Because of this, I can not make any repairs. I require you to
+        fix the reactor. '
+      audioClip: {fileID: 8300000, guid: b09bef6e70e3f4249892e6f7b499c137, type: 3}
     - characterName: AI
-      dialogueText: Setting my primary overhead functions offline.
-      audioClip: {fileID: 0}
+      dialogueText: "As you have already realized, our ship\u2019s artificial gravity
+        has also been manipulated."
+      audioClip: {fileID: 8300000, guid: e754b49721815874faf6260036b25b6d, type: 3}
     - characterName: AI
-      dialogueText: Because of this I can not make any repairs. I require you to
-        fix the reactor.
-      audioClip: {fileID: 0}
+      dialogueText: Therefore, you will need to utilize your preliminary zero gravity
+        training to navigate the corridors.
+      audioClip: {fileID: 8300000, guid: 50bdc1ba7d643b843a146c7623175eed, type: 3}
     - characterName: AI
       dialogueText: "As you have already realized, our ship\u2019s artificial gravity
         has also been manipulated. Therefore\u202C \u202D you will need to utilize
