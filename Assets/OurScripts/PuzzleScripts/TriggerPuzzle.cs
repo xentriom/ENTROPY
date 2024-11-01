@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
+using UnityEngine.UI;
 
 public class TriggerPuzzle : MonoBehaviour
 {
@@ -9,9 +11,8 @@ public class TriggerPuzzle : MonoBehaviour
     public Canvas puzzleCanvas;
     public float interactionDistance = 5f;
     public GameObject player;
-    //public FPSController fpsController;
     PlayerController playerController;
-    //public Canvas playerUI;
+    public bool puzzleComplete = false;
 
     private bool showingPuzzle = false;
 
@@ -45,10 +46,14 @@ public class TriggerPuzzle : MonoBehaviour
     private void OnInteract(InputAction.CallbackContext context)
     {
         // Only proceed if within interaction range
-        if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance)
+        if(puzzleComplete == false)
         {
-            TogglePuzzle();
+            if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance)
+            {
+                TogglePuzzle();
+            }
         }
+        
     }
 
     // Update is called once per frame
@@ -61,16 +66,18 @@ public class TriggerPuzzle : MonoBehaviour
     {
         while (true) // Infinite loop
         {
-            // Check distance to show/hide interaction text
-            if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance)
-            {
-                //interactionText.GetComponnent<
-                    //text = "Z to interact"; // Show the interaction message
+            if(puzzleComplete == false) {
+                // Check distance to show/hide interaction text
+                if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance)
+                {
+                    interactionText.SetActive(true);
+                }
+                else
+                {
+                    interactionText.SetActive(false);
+                }
             }
-            else
-            {
-                //interactionText.enabled = false; // Hide the interaction message
-            }
+            
 
             yield return new WaitForSeconds(0.5f); // Wait for half a second before checking again
         }
@@ -82,6 +89,7 @@ public class TriggerPuzzle : MonoBehaviour
         puzzleCanvas.enabled = showingPuzzle;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = showingPuzzle;
-        //fpsController.canMove = !showingPuzzle;
+        crosshair.SetActive(!showingPuzzle); // Hide crosshair when puzzle is active
+        player.GetComponent<Rigidbody>().isKinematic = showingPuzzle;
     }
 }

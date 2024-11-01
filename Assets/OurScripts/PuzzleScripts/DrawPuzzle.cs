@@ -457,6 +457,8 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     private IEnumerator WaitAndTogglePuzzleOff()
     {
         yield return new WaitForSeconds(1f); // Wait for 1 second
+        connectedPanel.GetComponent<TriggerPuzzle>().puzzleComplete = true;
+        connectedPanel.GetComponent<TriggerPuzzle>().interactionText.SetActive(false);
         connectedPanel.GetComponent<TriggerPuzzle>().TogglePuzzle(); // Call your existing method to toggle the puzzle off
     }
 

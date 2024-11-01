@@ -308,17 +308,24 @@ public class PlayerZeroG : MonoBehaviour
     {
         if (showTutorialMessages)
         {
+            
             if (isGrabbing)
             {
-                grabUIText.text = "'WASD'";
+                
+                    grabUIText.text = "'WASD'";
+                
             }
             else if (IsInRangeofBar() && !isGrabbing)
             {
-                grabUIText.text = "press and hold 'Right Mouse Button'";
+                
+                    grabUIText.text = "press and hold 'Right Mouse Button'";
+                
             }
             else if (!isGrabbing && !IsInRangeofBar())
             {
-                grabUIText.text = null;
+                
+                    grabUIText.text = null;
+                
             }
         }
         else if (!showTutorialMessages)
