@@ -33,6 +33,8 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     private bool nodesComplete = false;
     private bool puzzleComplete = false;
+    private bool doorOpen = false;
+    public GameObject connectedDoor;
 
     //energy
     public int maxEnergy;
@@ -453,7 +455,7 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     void Update()
     {
-        if(puzzleComplete == false)
+        if (puzzleComplete == false)
         {
             //if all the nodes are connected to their previous and next nodes
             if (nodesComplete == false)
@@ -487,14 +489,16 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         }
         else
         {
-            
-            //Debug.Log("You Win");
-            if (ColorUtility.TryParseHtmlString("#0F3827", out Color bgColor))
+            if (doorOpen == false)
             {
-                drawingArea.GetComponent<Image>().color = bgColor;
+                doorOpen = true;
+                if (ColorUtility.TryParseHtmlString("#0F3827", out Color bgColor))
+                {
+                    drawingArea.GetComponent<Image>().color = bgColor;
+                }
+                connectedDoor.GetComponent<DoorHandler>().PuzzleComplete();
             }
+
         }
-        
     }
-    
 }

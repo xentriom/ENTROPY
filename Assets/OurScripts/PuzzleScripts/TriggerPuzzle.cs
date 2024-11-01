@@ -24,9 +24,9 @@ public class TriggerPuzzle : MonoBehaviour
         float distance = Vector3.Distance(player.transform.position, transform.position);
         if(distance <= interactionDistance)
         {
-            if(Input.GetKeyDown(KeyCode.Q)) {
-                TogglePuzzle();
-            }
+            //if(Input.GetKeyDown(KeyCode.LeftShift)) {
+                //TogglePuzzle();
+            //}
         }
     }
 
@@ -36,6 +36,6 @@ public class TriggerPuzzle : MonoBehaviour
         puzzleCanvas.enabled = showingPuzzle;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = showingPuzzle;
-        fpsController.canMove = !showingPuzzle;
+        //fpsController.canMove = !showingPuzzle;
     }
 }

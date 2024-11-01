@@ -10,6 +10,7 @@ public class DoorHandler : MonoBehaviour
 
     public enum States
     {
+        Locked,
         Closed,
         Closing,
         Open,
@@ -134,5 +135,13 @@ public class DoorHandler : MonoBehaviour
     {
         Debug.Log("Dialogue completed, door can be opened.");
         dialogueComplete = true;
+    }
+
+    public void PuzzleComplete()
+    {
+        if(states == States.Locked)
+        {
+            states = States.Opening;
+        }
     }
 }
