@@ -157,7 +157,7 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(puzzleComplete)
+        if (puzzleComplete)
         {
             return;
         }
@@ -168,12 +168,25 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             CreateCircleAtPosition(lastPosition);
 
             //check to see if circle is starting in an existing shape
-            PuzzleShape relatedShape = GetRelatedShape(currentCircle);
+            List<PuzzleShape> relatedShapes = GetRelatedShape(currentCircle);
             //Debug.Log(GetRelatedShape(currentCircle));
-            if (relatedShape != null)
+            if (relatedShapes != null)
             {
-                currentShape = relatedShape;
-                relatedShape.AddCircle(currentCircle);
+                if (relatedShapes.Count == 1)
+                {
+                    currentShape = relatedShapes[0];
+                    relatedShapes[0].AddCircle(currentCircle);
+                }
+                //if there's more than 1 shape, connect them
+                else
+                {
+                    for (int i = 1; i < relatedShapes.Count; i++)
+                    {
+                        relatedShapes[0].CombineShapes(relatedShapes[i]);
+                    }
+                    currentShape = relatedShapes[0];
+                    relatedShapes[0].AddCircle(currentCircle);
+                }
             }
             //if not, create a new shape
             else
@@ -197,19 +210,21 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
                 {
                     currentShape.AddNode(node);
                     currentNode = node;
-                    foreach (PuzzleNode n in currentShape.connectedNodes)
-                    {
-                        n.CheckComplete();
-                    }
+
                 }
 
+            }
+
+            foreach (PuzzleNode n in currentShape.connectedNodes)
+            {
+                n.CheckComplete();
             }
 
 
 
 
         }
-        
+
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -334,27 +349,43 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     }
 
     //method to be used in OnPointerDown, checks to see if the point is intersecting another shape
-    private PuzzleShape GetRelatedShape(PuzzleCircle circleToCheck)
+    private List<PuzzleShape> GetRelatedShape(PuzzleCircle circleToCheck)
     {
 
         float canvasScaleFactor = canvas.localScale.x; // Assuming uniform scaling
         float adjustedRadius = circleRadius * canvasScaleFactor;
+        float collisionBuffer = 3 * canvasScaleFactor; //makes circles a little less sensitive to collision with eachother, higher number = less sensitive
+        List<PuzzleShape> relatedShapes = new List<PuzzleShape>();
+        
 
         foreach (PuzzleCircle circle in circles)
         {
-            if(circle != circleToCheck)
+
+            if (circle != circleToCheck)
             {
-                if (Vector2.Distance(circle.Position(), circleToCheck.Position()) <= (adjustedRadius * 2))
+                
+                if (Vector2.Distance(circle.Position(), circleToCheck.Position()) <= (adjustedRadius * 2) + collisionBuffer)
                 {
                     //Debug.Log(Vector2.Distance(circle.Position(), circleToCheck.Position()));
                     //Debug.Log(adjustedRadius * 2);
-                    return circle.parentShape;
+                    if (relatedShapes.Contains(circle.parentShape) == false)
+                    {
+                        relatedShapes.Add(circle.parentShape);
+                    }
                 }
             }
-            
+
+
 
         }
-        return null;
+        if (relatedShapes.Count > 0)
+        {
+            return relatedShapes;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     //method to be used in OnDrag, checks to see if the current shape is intersecting another shape
