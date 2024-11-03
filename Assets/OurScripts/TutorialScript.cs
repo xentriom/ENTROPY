@@ -36,9 +36,9 @@ public class TutorialScript : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Manages the tutorial sequence
     /// </summary>
-    /// <returns></returns>
+    /// <returns>IEnumerator for coroutine control</returns>
     private IEnumerator TutorialSequence()
     {
         yield return new WaitForSeconds(initialDelay);
@@ -58,7 +58,7 @@ public class TutorialScript : MonoBehaviour
                     yield return StartCoroutine(ShowStepAndWaitForAction("Hold W to move forward", "MoveForward"));
                     break;
                 case 3:
-                    yield return StartCoroutine(ShowStepAndWaitForAction("Talk to the terminal to begin", "Interact"));
+                    yield return StartCoroutine(ShowStepAndWaitForAction("Talk to the terminal to begin (Temp: Press Z)", "Interact"));
                     break;
             }
             currentStepIndex++;
@@ -71,11 +71,11 @@ public class TutorialScript : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Displays an instruction and waits until the specified action is performed by the player.
     /// </summary>
-    /// <param name="instruction"></param>
-    /// <param name="actionName"></param>
-    /// <returns></returns>
+    /// <param name="instruction">The instruction text to display</param>
+    /// <param name="actionName">The action name to wait for</param>
+    /// <returns>IEnumerator for coroutine control</returns>
     private IEnumerator ShowStepAndWaitForAction(string instruction, string actionName)
     {
         tutorialText.text = instruction;
@@ -89,11 +89,7 @@ public class TutorialScript : MonoBehaviour
         inputActionMap.Enable();
         bool actionTriggered = false;
 
-        System.Action<InputAction.CallbackContext> callback = ctx =>
-        {
-            actionTriggered = true;
-        };
-
+        System.Action<InputAction.CallbackContext> callback = ctx => actionTriggered = true;
         currentAction.performed += callback;
 
         yield return new WaitUntil(() => actionTriggered);
