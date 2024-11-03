@@ -423,6 +423,90 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Tutorial"",
+            ""id"": ""fac7e0e6-6b04-405b-ab1d-1aa980992ee1"",
+            ""actions"": [
+                {
+                    ""name"": ""Continue"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1f93c54-c188-453f-a962-c46a379aae1e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PanCamera"",
+                    ""type"": ""Value"",
+                    ""id"": ""b8c8588d-2228-4d45-8742-8154b3e8a32b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""MoveForward"",
+                    ""type"": ""Button"",
+                    ""id"": ""2eba8315-cbca-4c7b-8d5f-2add2398c9bb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7908b73-e717-45d1-9025-c284d43856e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""06324eb7-6a48-43bd-b369-2e8588649924"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Continue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3e8860e-34e5-4c7a-a6a9-8555245822c2"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PanCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6831904-a0c4-4254-b59d-40a6fb5c4390"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveForward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c447531-e6b9-4f0a-ada1-5e3333063c30"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -439,6 +523,12 @@ public class @PlayerController : IInputActionCollection, IDisposable
         // Dialogue
         m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
         m_Dialogue_ContinueDialogue = m_Dialogue.FindAction("ContinueDialogue", throwIfNotFound: true);
+        // Tutorial
+        m_Tutorial = asset.FindActionMap("Tutorial", throwIfNotFound: true);
+        m_Tutorial_Continue = m_Tutorial.FindAction("Continue", throwIfNotFound: true);
+        m_Tutorial_PanCamera = m_Tutorial.FindAction("PanCamera", throwIfNotFound: true);
+        m_Tutorial_MoveForward = m_Tutorial.FindAction("MoveForward", throwIfNotFound: true);
+        m_Tutorial_Interact = m_Tutorial.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -598,6 +688,63 @@ public class @PlayerController : IInputActionCollection, IDisposable
         }
     }
     public DialogueActions @Dialogue => new DialogueActions(this);
+
+    // Tutorial
+    private readonly InputActionMap m_Tutorial;
+    private ITutorialActions m_TutorialActionsCallbackInterface;
+    private readonly InputAction m_Tutorial_Continue;
+    private readonly InputAction m_Tutorial_PanCamera;
+    private readonly InputAction m_Tutorial_MoveForward;
+    private readonly InputAction m_Tutorial_Interact;
+    public struct TutorialActions
+    {
+        private @PlayerController m_Wrapper;
+        public TutorialActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Continue => m_Wrapper.m_Tutorial_Continue;
+        public InputAction @PanCamera => m_Wrapper.m_Tutorial_PanCamera;
+        public InputAction @MoveForward => m_Wrapper.m_Tutorial_MoveForward;
+        public InputAction @Interact => m_Wrapper.m_Tutorial_Interact;
+        public InputActionMap Get() { return m_Wrapper.m_Tutorial; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TutorialActions set) { return set.Get(); }
+        public void SetCallbacks(ITutorialActions instance)
+        {
+            if (m_Wrapper.m_TutorialActionsCallbackInterface != null)
+            {
+                @Continue.started -= m_Wrapper.m_TutorialActionsCallbackInterface.OnContinue;
+                @Continue.performed -= m_Wrapper.m_TutorialActionsCallbackInterface.OnContinue;
+                @Continue.canceled -= m_Wrapper.m_TutorialActionsCallbackInterface.OnContinue;
+                @PanCamera.started -= m_Wrapper.m_TutorialActionsCallbackInterface.OnPanCamera;
+                @PanCamera.performed -= m_Wrapper.m_TutorialActionsCallbackInterface.OnPanCamera;
+                @PanCamera.canceled -= m_Wrapper.m_TutorialActionsCallbackInterface.OnPanCamera;
+                @MoveForward.started -= m_Wrapper.m_TutorialActionsCallbackInterface.OnMoveForward;
+                @MoveForward.performed -= m_Wrapper.m_TutorialActionsCallbackInterface.OnMoveForward;
+                @MoveForward.canceled -= m_Wrapper.m_TutorialActionsCallbackInterface.OnMoveForward;
+                @Interact.started -= m_Wrapper.m_TutorialActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_TutorialActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_TutorialActionsCallbackInterface.OnInteract;
+            }
+            m_Wrapper.m_TutorialActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Continue.started += instance.OnContinue;
+                @Continue.performed += instance.OnContinue;
+                @Continue.canceled += instance.OnContinue;
+                @PanCamera.started += instance.OnPanCamera;
+                @PanCamera.performed += instance.OnPanCamera;
+                @PanCamera.canceled += instance.OnPanCamera;
+                @MoveForward.started += instance.OnMoveForward;
+                @MoveForward.performed += instance.OnMoveForward;
+                @MoveForward.canceled += instance.OnMoveForward;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+            }
+        }
+    }
+    public TutorialActions @Tutorial => new TutorialActions(this);
     public interface IPlayerControlsActions
     {
         void OnThrust(InputAction.CallbackContext context);
@@ -611,5 +758,12 @@ public class @PlayerController : IInputActionCollection, IDisposable
     public interface IDialogueActions
     {
         void OnContinueDialogue(InputAction.CallbackContext context);
+    }
+    public interface ITutorialActions
+    {
+        void OnContinue(InputAction.CallbackContext context);
+        void OnPanCamera(InputAction.CallbackContext context);
+        void OnMoveForward(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
