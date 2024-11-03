@@ -49,7 +49,7 @@ public class DoorHandler : MonoBehaviour
         }
 
         
-        dialogueManager.StartDialogueSequence(0);
+        //dialogueManager.StartDialogueSequence(0);
     }
 
 
@@ -152,10 +152,14 @@ public class DoorHandler : MonoBehaviour
         }
     }
 
-    private void DialogueEnd()
+    private void DialogueEnd(int sequenceIndex)
     {
-        Debug.Log("Dialogue completed, door can be opened.");
-        dialogueComplete = true;
+        // Only open door if the first dialogue sequence is completed
+        if (sequenceIndex == 0)
+        {
+            Debug.Log($"Dialogue {sequenceIndex} completed, door can be opened.");
+            dialogueComplete = true;
+        }
     }
 
     public void PuzzleComplete()

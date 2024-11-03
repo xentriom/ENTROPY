@@ -14,7 +14,7 @@ public class DialogueManager : MonoBehaviour
     public float typewriterSpeed = 0.08f;
 
     // Events and input control
-    public event Action OnDialogueEnd;
+    public event Action<int> OnDialogueEnd;
     private PlayerController playerController;
 
     // Dialogue sequence tracking
@@ -95,7 +95,7 @@ public class DialogueManager : MonoBehaviour
 
         // Hide canvas and invoke end event
         dialogueCanvas.enabled = false;
-        OnDialogueEnd?.Invoke();
+        OnDialogueEnd?.Invoke(currentSequenceIndex);
     }
 
     /// <summary>
@@ -137,8 +137,11 @@ public class DialogueManager : MonoBehaviour
 // dialogueManager.StartDialogueSequence(int);
 // dialogueManager.OnDialogueEnd += exampleFunction;
 //
-// private void exampleFunction()
+// private void exampleFunction(int sqIndex)
 // {
-//     Debug.Log("Dialogue sequence ended");
-//     // Additional logic here (open doors, tp alien, blow up map, etc.)
+//     Debug.Log($"Dialogue sequence #{sqIndex} ended");
+//     if (sqIndex == desiredSequenceIndex) {
+//         // Additional logic here (open doors, tp alien, blow up map, etc.)
+//         // call functions, or anything really
+//     }
 // }
