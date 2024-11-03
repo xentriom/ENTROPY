@@ -4822,8 +4822,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 34
+  m_fontSizeBase: 34
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7147,41 +7147,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueSequences:
   - dialogues:
-    - characterName: AI
+    - characterName: ALAN
       dialogueText: Good, you're finally awake. I regret to inform you that there
         is an unlikely crisis regarding the integrity of our ship.
       audioClip: {fileID: 8300000, guid: 3ed0704cc98487f4ea2c3952ba46830b, type: 3}
-    - characterName: AI
+    - characterName: ALAN
       dialogueText: My sensors have detected traceable amounts of lethal radiation
         leaking, with the source being that of the ship's compact fusion reactor.
       audioClip: {fileID: 8300000, guid: 82807066e4683f84dbf80dea12afcc7c, type: 3}
-    - characterName: AI
+    - characterName: ALAN
       dialogueText: "They are moderately safe now due to the main cabin\u2019s physical
         distance from the rear of the ship where the reactor is located."
       audioClip: {fileID: 8300000, guid: 9eacc1a9f145bc240ad08df107e84895, type: 3}
-    - characterName: AI
+    - characterName: ALAN
       dialogueText: However, without maintenance, radiation levels will continue
         to rise to super-critical levels, causing the ship to rupture and explode.
       audioClip: {fileID: 8300000, guid: 617e83ff529c87c4d9cb3ac46f72af00, type: 3}
-    - characterName: AI
+    - characterName: ALAN
       dialogueText: We will not survive this scenario.
       audioClip: {fileID: 8300000, guid: 144dbf6076af18b4bba524475cc6d866, type: 3}
-    - characterName: AI
+    - characterName: ALAN
       dialogueText: Due to damage to the reactor, our ship is running on auxiliary
         power,
       audioClip: {fileID: 8300000, guid: ce6db7fa9423b2142993236bde6b4472, type: 3}
-    - characterName: AI
+    - characterName: ALAN
       dialogueText: keeping the lights on and a few of my primary functions online.
       audioClip: {fileID: 8300000, guid: c153478d7b2b53a4d8ddfd15c058fd74, type: 3}
-    - characterName: AI
+    - characterName: ALAN
       dialogueText: 'Because of this, I can not make any repairs. I require you to
         fix the reactor. '
       audioClip: {fileID: 8300000, guid: b09bef6e70e3f4249892e6f7b499c137, type: 3}
-    - characterName: AI
+    - characterName: ALAN
       dialogueText: "As you have already realized, our ship\u2019s artificial gravity
         has also been manipulated."
       audioClip: {fileID: 8300000, guid: e754b49721815874faf6260036b25b6d, type: 3}
-    - characterName: AI
+    - characterName: ALAN
       dialogueText: Therefore, you will need to utilize your preliminary zero gravity
         training to navigate the corridors.
       audioClip: {fileID: 8300000, guid: 50bdc1ba7d643b843a146c7623175eed, type: 3}
@@ -7267,9 +7267,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialCanvas: {fileID: 407681950}
   tutorialText: {fileID: 355817817}
+  inputActionAsset: {fileID: -944628639613478452, guid: 62bee993b4da21145a34bb9e2304d3d3, type: 3}
   initialDelay: 2
   delayBetweenSteps: 1
-  inputActionAsset: {fileID: -944628639613478452, guid: 62bee993b4da21145a34bb9e2304d3d3, type: 3}
 --- !u!1 &489580437
 GameObject:
   m_ObjectHideFlags: 0
@@ -9635,12 +9635,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1557976799}
+  m_Father: {fileID: 867723105}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -45}
+  m_AnchoredPosition: {x: 0, y: -830}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &622163706
@@ -9672,8 +9672,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284927231
+  m_fontColor: {r: 1, g: 0.8, b: 0.4, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9690,13 +9690,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -12483,6 +12483,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 622163705}
   - {fileID: 1557976799}
   m_Father: {fileID: 837739514}
   m_RootOrder: 3
@@ -17099,12 +17100,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1557976799}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -25}
-  m_SizeDelta: {x: 1700, y: 150}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1400, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1171086734
 MonoBehaviour:
@@ -17153,8 +17154,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 34
+  m_fontSizeBase: 34
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -17165,7 +17166,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -22208,15 +22209,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 622163705}
   - {fileID: 1171086733}
   m_Father: {fileID: 867723105}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -385}
-  m_SizeDelta: {x: 0, y: -770}
+  m_AnchoredPosition: {x: 0, y: -400}
+  m_SizeDelta: {x: 0, y: -800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1557976800
 MonoBehaviour:
@@ -22231,7 +22231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.078431375}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
