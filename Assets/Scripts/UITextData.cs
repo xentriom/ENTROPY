@@ -13,3 +13,15 @@ public class DialogueSequence
 {
     public Dialogue[] dialogues;
 }
+
+struct TutorialStep
+{
+    public string actionName;
+    public string instruction;
+
+    public TutorialStep(string actionName, string instruction)
+    {
+        this.actionName = actionName;
+        this.instruction = instruction;
+    }
+}

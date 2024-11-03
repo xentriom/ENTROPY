@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
@@ -16,8 +17,17 @@ public class TutorialScript : MonoBehaviour
 
     // Tutorial sequence tracking
     private int currentStepIndex = 0;
-    public float initialDelay = 5f;
-    public float delayBetweenSteps = 1f;
+    public float initialDelay = 2f;
+    public float delayBetweenSteps = 0.5f;
+
+    // Tutorial steps and instructions
+    private readonly List<TutorialStep> tutorialSteps = new List<TutorialStep>
+    {
+        new TutorialStep("Continue", "Press F to continue dialogue"),
+        new TutorialStep("PanCamera", "Move cursor to rotate camera"),
+        new TutorialStep("MoveForward", "Hold W to move forward"),
+        new TutorialStep("Interact", "Talk to the terminal to begin (Temp: Press Z)")
+    };
 
     private void Awake()
     {
@@ -46,21 +56,9 @@ public class TutorialScript : MonoBehaviour
 
         while (currentStepIndex < 4)
         {
-            switch (currentStepIndex)
-            {
-                case 0:
-                    yield return StartCoroutine(ShowStepAndWaitForAction("Press F to continue dialogue", "Continue"));
-                    break;
-                case 1:
-                    yield return StartCoroutine(ShowStepAndWaitForAction("Move cursor to rotate camera", "PanCamera"));
-                    break;
-                case 2:
-                    yield return StartCoroutine(ShowStepAndWaitForAction("Hold W to move forward", "MoveForward"));
-                    break;
-                case 3:
-                    yield return StartCoroutine(ShowStepAndWaitForAction("Talk to the terminal to begin (Temp: Press Z)", "Interact"));
-                    break;
-            }
+            var step = tutorialSteps[currentStepIndex];
+            yield return StartCoroutine(ShowStepAndWaitForAction(step.instruction, step.actionName));
+            //yield return StartCoroutine(ShowStepAndWaitForAction(instructions[currentStepIndex], actionNames[currentStepIndex]));
             currentStepIndex++;
             yield return new WaitForSeconds(delayBetweenSteps);
         }
@@ -86,15 +84,16 @@ public class TutorialScript : MonoBehaviour
             yield break;
         }
 
-        inputActionMap.Enable();
+        currentAction.Enable();
         bool actionTriggered = false;
 
-        System.Action<InputAction.CallbackContext> callback = ctx => actionTriggered = true;
+        // create callback and wait until action is triggered
+        void callback(InputAction.CallbackContext ctx) => actionTriggered = true;
         currentAction.performed += callback;
-
         yield return new WaitUntil(() => actionTriggered);
 
+        // remove callback and disable action
         currentAction.performed -= callback;
-        inputActionMap.Disable();
+        currentAction.Disable();
     }
 }
