@@ -51,6 +51,12 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     //reset
     private Color drawingAreaColor;
 
+    //audio
+    public AudioSource audioSource;
+    public AudioClip circleCreate;
+    public AudioClip puzzleLoss;
+    public AudioClip puzzleWin;
+
 
     void Start()
     {
@@ -321,17 +327,19 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
             circles.Add(currentCircle);
 
+            audioSource.PlayOneShot(circleCreate);
+
             currentEnergy--;
             UpdateEnergyBar();
         }
         else
         {
             //out of energy
+            isDrawing = false;
+            Debug.Log("Out of energy");
+            audioSource.PlayOneShot(puzzleLoss);
             HandleEnergyDepletion();
         }
-        
-
-
 
     }
 
@@ -487,9 +495,12 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     private IEnumerator WaitAndTogglePuzzleOff()
     {
-        yield return new WaitForSeconds(1f); // Wait for 1 second
+        audioSource.PlayOneShot(puzzleWin);
         connectedPanel.GetComponent<TriggerPuzzle>().puzzleComplete = true;
         connectedPanel.GetComponent<TriggerPuzzle>().interactionText.SetActive(false);
+        yield return new WaitForSeconds(1f); // Wait for 1 second
+        
+        
         connectedPanel.GetComponent<TriggerPuzzle>().TogglePuzzle(); // Call your existing method to toggle the puzzle off
     }
 

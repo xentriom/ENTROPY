@@ -87,12 +87,22 @@ public class PlayerZeroG : MonoBehaviour
     // Track if the movement keys were released
     private bool movementKeysReleased;
 
+    //Puzzle associated variables
+    private bool viewingPuzzle = false;
+    private Quaternion savedRotation;
+
     //Properties
     //this property allows showTutorialMessages to be assigned outside of the script. Needed for the tutorial mission
-    public bool ShowTurorialMessages
+    public bool ShowTutorialMessages
     {
         get { return showTutorialMessages; }
         set { showTutorialMessages = value; }
+    }
+
+    public bool ViewingPuzzle
+    {
+        get { return viewingPuzzle;  }
+        set { viewingPuzzle = value; }
     }
 
     // Start is called before the first frame update
@@ -113,33 +123,37 @@ public class PlayerZeroG : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // Get the current horizontal and vertical axis values
-        float horizontalAxis = pov.m_HorizontalAxis.Value;
-        float verticalAxis = pov.m_VerticalAxis.Value;
-
-        if (!isGrabbing)
+        if(viewingPuzzle == false)
         {
-            //handle how the player moves in open space
-            HandleFreeMovement();
+            // Get the current horizontal and vertical axis values
+            float horizontalAxis = pov.m_HorizontalAxis.Value;
+            float verticalAxis = pov.m_VerticalAxis.Value;
 
-            // Check if the player reaches horizontal limits and rotate the mesh accordingly
-            if (horizontalAxis >= horizontalMax - 1.0f || horizontalAxis <= horizontalMin + 1.0f)
+            if (!isGrabbing)
             {
-                RotateMesh(characterPivot.transform.up, horizontalAxis, horizontalMax, horizontalMin, rotateSpeedHorizontal);
-            }
+                //handle how the player moves in open space
+                HandleFreeMovement();
 
-            // Check if the player reaches vertical limits and rotate the mesh accordingly
-            if (verticalAxis >= verticalMax - 1.0f || verticalAxis <= verticalMin + 1.0f)
+                // Check if the player reaches horizontal limits and rotate the mesh accordingly
+                if (horizontalAxis >= horizontalMax - 1.0f || horizontalAxis <= horizontalMin + 1.0f)
+                {
+                    RotateMesh(characterPivot.transform.up, horizontalAxis, horizontalMax, horizontalMin, rotateSpeedHorizontal);
+                }
+
+                // Check if the player reaches vertical limits and rotate the mesh accordingly
+                if (verticalAxis >= verticalMax - 1.0f || verticalAxis <= verticalMin + 1.0f)
+                {
+                    RotateMesh(characterPivot.transform.right, verticalAxis, verticalMax, verticalMin, rotateSpeedVertical);
+                }
+            }
+            else if (isGrabbing)
             {
-                RotateMesh(characterPivot.transform.right, verticalAxis, verticalMax, verticalMin, rotateSpeedVertical);
+                HandleGrabMovement(horizontalAxis, verticalAxis);
             }
-        }
-        else if (isGrabbing)
-        {
-            HandleGrabMovement(horizontalAxis, verticalAxis);
+            GrabUIText();
+            
         }
 
-        GrabUIText();
     }
 
     //This method will handle all inputs and how they make the ship move
@@ -416,6 +430,18 @@ public class PlayerZeroG : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ToggleVCam()
+    {
+        if(vCam.enabled)
+        {
+            savedRotation = mainCam.transform.rotation;
+        }
+        vCam.enabled = !vCam.enabled;
+        mainCam.transform.rotation = savedRotation;
+        //Debug.Log("Cam Rotation " + mainCam.transform.rotation);
+        //Debug.Log("Saved Rotation " + savedRotation);
     }
 
     #region Input Methods

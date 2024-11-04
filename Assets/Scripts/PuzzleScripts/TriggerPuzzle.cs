@@ -18,16 +18,26 @@ public class TriggerPuzzle : MonoBehaviour
 
     public GameObject crosshair; // Reference to the crosshair image
     public GameObject interactionText; // Reference to the TextMeshPro component for the interaction message
+    private PlayerZeroG playerManager;
+
+    //audio
+    public AudioSource audioSource;
+    public AudioClip puzzleStart;
 
     private void Awake()
     {
         // Initialize the PlayerController and the Interact action
         playerController = new PlayerController();
         playerController.PlayerControls.Interact.performed += OnInteract; // Hook up Interact to your function
+        
+        
     }
     void Start()
     {
         puzzleCanvas.enabled = false;
+
+        playerManager = player.GetComponent<PlayerZeroG>();
+
 
         StartCoroutine(CheckDistance()); // Start the distance checking coroutine
 
@@ -45,7 +55,7 @@ public class TriggerPuzzle : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        // Only proceed if within interaction range
+        // Only proceed if within interaction range 
         if(puzzleComplete == false)
         {
             if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance)
@@ -86,8 +96,14 @@ public class TriggerPuzzle : MonoBehaviour
     public void TogglePuzzle()
     {
         showingPuzzle = !showingPuzzle;
+        if(showingPuzzle)
+        {
+            audioSource.PlayOneShot(puzzleStart);
+        }
         puzzleCanvas.enabled = showingPuzzle;
-        Cursor.lockState = CursorLockMode.None;
+        playerManager.ViewingPuzzle = showingPuzzle;
+        playerManager.ToggleVCam();
+        Cursor.lockState = showingPuzzle ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = showingPuzzle;
         crosshair.SetActive(!showingPuzzle); // Hide crosshair when puzzle is active
         player.GetComponent<Rigidbody>().isKinematic = showingPuzzle;
