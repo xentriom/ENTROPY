@@ -13,7 +13,6 @@ public class TutorialScript : MonoBehaviour
     // Input and dialogue references
     public InputActionAsset inputActionAsset;
     private InputActionMap inputActionMap;
-    private DialogueManager dialogueManager;
 
     // Tutorial sequence tracking
     private int currentStepIndex = 0;
@@ -37,9 +36,6 @@ public class TutorialScript : MonoBehaviour
 
     private void Start()
     {
-        // Find the DialogueManager
-        dialogueManager = FindObjectOfType<DialogueManager>();
-
         // Hide tutorial canvas and start tutorial sequence
         tutorialCanvas.enabled = false;
         StartCoroutine(TutorialSequence());
@@ -58,14 +54,13 @@ public class TutorialScript : MonoBehaviour
         {
             var step = tutorialSteps[currentStepIndex];
             yield return StartCoroutine(ShowStepAndWaitForAction(step.instruction, step.actionName));
-            //yield return StartCoroutine(ShowStepAndWaitForAction(instructions[currentStepIndex], actionNames[currentStepIndex]));
             currentStepIndex++;
             yield return new WaitForSeconds(delayBetweenSteps);
         }
 
         tutorialCanvas.enabled = false;
         yield return new WaitForSeconds(delayBetweenSteps * 2);
-        dialogueManager.StartDialogueSequence(0);
+        DialogueManager.Instance?.StartDialogueSequence(0);
     }
 
     /// <summary>

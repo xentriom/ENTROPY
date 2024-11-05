@@ -5,6 +5,8 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager Instance { get; private set; }
+
     // Dialogue sequences and UI references
     public DialogueSequence[] dialogueSequences;
     public Canvas dialogueCanvas;
@@ -27,6 +29,14 @@ public class DialogueManager : MonoBehaviour
     // Initialization
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         playerController = new PlayerController();
     }
 
@@ -139,17 +149,5 @@ public class DialogueManager : MonoBehaviour
     }
 }
 
-// Example of starting a dialogue sequence outside of the DialogueManager script
-// private DialogueManager dialogueManager;
-// dialogueManager = FindObjectOfType<DialogueManager>();
-// dialogueManager.StartDialogueSequence(int);
-// dialogueManager.OnDialogueEnd += exampleFunction;
-//
-// private void exampleFunction(int sqIndex)
-// {
-//     Debug.Log($"Dialogue sequence #{sqIndex} ended");
-//     if (sqIndex == desiredSequenceIndex) {
-//         // Additional logic here (open doors, tp alien, blow up map, etc.)
-//         // call functions, or anything really
-//     }
-// }
+// Example of starting a dialogue sequence outside of the DialogueManager script:
+// DialogueManager.Instance?.StartDialogueSequence(int);
