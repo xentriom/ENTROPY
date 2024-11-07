@@ -91,6 +91,9 @@ public class PlayerZeroG : MonoBehaviour
     private bool viewingPuzzle = false;
     private Quaternion savedRotation;
 
+    //respawn
+    public GameObject respawnLoc;
+
     //Properties
     //this property allows showTutorialMessages to be assigned outside of the script. Needed for the tutorial mission
     public bool ShowTutorialMessages
@@ -123,8 +126,6 @@ public class PlayerZeroG : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(viewingPuzzle == false)
-        {
             // Get the current horizontal and vertical axis values
             float horizontalAxis = pov.m_HorizontalAxis.Value;
             float verticalAxis = pov.m_VerticalAxis.Value;
@@ -151,8 +152,6 @@ public class PlayerZeroG : MonoBehaviour
                 HandleGrabMovement(horizontalAxis, verticalAxis);
             }
             GrabUIText();
-            
-        }
 
     }
 
