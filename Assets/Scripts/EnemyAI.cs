@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 public class EnemyAI : MonoBehaviour
 {
-    public float speed = 4.0f;
+    public float speed = 2.0f;
     public float chaseDistance = 5.0f;
     public GameObject player;
     public Waypoint startingWaypoint; // Starting waypoint for teleportation
     public DoorHandler door;
+    public bool useRandomRoaming; // Toggle to switch between roaming and tracking modes
 
     private Waypoint currentWaypoint;
     private Queue<Waypoint> path = new Queue<Waypoint>();
@@ -15,63 +16,94 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        // Set the current waypoint to the starting waypoint at the beginning
+        // Set the current waypoint to the starting one
         currentWaypoint = startingWaypoint;
-        FindPlayerPath(); // Initialize path to the player
+        FindPlayerPath();
     }
 
     void Update()
     {
-        // Only proceed if the door is open
+        // Only start AI behavior if the door is open
         if (door.states != DoorHandler.States.Open) return;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        if(isChasingPlayer)
+        {
+            ChasePlayer();
+        }
+        else
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        // Check if enemy should switch to direct pursuit
-        if (distanceToPlayer <= chaseDistance)
+            if (distanceToPlayer <= chaseDistance)
+            {
+                isChasingPlayer = true;
+                ChasePlayer();
+            }
+            else if (useRandomRoaming)
+            {
+                isChasingPlayer = false;
+                RoamArea();
+            }
+            else
+            {
+                isChasingPlayer = false;
+                TrackPlayer();
+            }
+        }
+        
+    }
+
+    void ChasePlayer()
+    {
+        // Move directly towards the player
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+    }
+
+    void TrackPlayer()
+    {
+        if (path.Count == 0) return;
+
+        Waypoint targetWaypoint = path.Peek();
+        transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.transform.position, speed * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, targetWaypoint.transform.position) < 0.1f)
+        {
+            path.Dequeue();
+        }
+
+        // Recalculate path if path is empty
+        if (path.Count == 0) FindPlayerPath();
+    }
+
+    void RoamArea()
+    {
+        // Choose a random neighbor if at the current waypoint
+        if (Vector3.Distance(transform.position, currentWaypoint.transform.position) < 0.1f)
+        {
+            Waypoint nextWaypoint = currentWaypoint.neighbors[Random.Range(0, currentWaypoint.neighbors.Count)];
+            currentWaypoint = nextWaypoint;
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, currentWaypoint.transform.position, speed * Time.deltaTime);
+
+        // Switch to chase mode if player is nearby
+        if (Vector3.Distance(transform.position, player.transform.position) <= chaseDistance)
         {
             isChasingPlayer = true;
-        }
-        else
-        {
-            isChasingPlayer = false;
-        }
-
-        if (isChasingPlayer)
-        {
-            // Move directly towards the player
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
-        else
-        {
-            // Follow the waypoints
-            if (path.Count == 0) return;
-
-            Waypoint targetWaypoint = path.Peek();
-            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.transform.position, speed * Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, targetWaypoint.transform.position) < 0.1f)
-            {
-                path.Dequeue();
-            }
-
-            // Recalculate path if reached the end
-            if (path.Count == 0) FindPlayerPath();
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Check if the enemy has collided with the player
         if (other.CompareTag("Player"))
         {
-            // Teleport the player to their respawn location
+            // Teleport player to respawn location
             player.transform.position = player.GetComponent<PlayerZeroG>().respawnLoc.transform.position;
 
-            // Teleport enemy back to the starting waypoint
+            // Teleport enemy to the starting waypoint
             transform.position = startingWaypoint.transform.position;
 
-            // Reset pathfinding to start from the initial waypoint
+            // Reset path and current waypoint
             currentWaypoint = startingWaypoint;
             FindPlayerPath();
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ButtonGradient
   m_EditorClassIdentifier: 
   colorMode: 3
-  topLeft: {r: 0, g: 0.8301887, b: 0.018174946, a: 1}
-  topRight: {r: 0, g: 0.83137256, b: 0.019607844, a: 1}
-  bottomLeft: {r: 0, g: 0.83137256, b: 0.019607844, a: 1}
+  topLeft: {r: 0, g: 0.8313726, b: 0.019607844, a: 1}
+  topRight: {r: 0, g: 0.8313726, b: 0.019607844, a: 1}
+  bottomLeft: {r: 0, g: 0.8313726, b: 0.019607844, a: 1}
   bottomRight: {r: 0, g: 0.83137256, b: 0.019607844, a: 1}
