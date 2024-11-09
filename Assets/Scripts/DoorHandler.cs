@@ -21,27 +21,42 @@ public class DoorHandler : MonoBehaviour
     public GameObject DoorUI = null;
     public bool dialogueComplete = false;
     private bool inArea = false;
-  
 
-    public States states = States.Closed;
-    public float speed = 1.0f;
+    [SerializeField]
+    private States states = States.Closed;
+
+    [SerializeField]
+    private float speed = 1.0f;
+    [SerializeField]
+    private float openSize = 8.0f;
+
     private float sinTime;
     private Vector3 openPos;
     private Vector3 closedPos;
 
     private DialogueManager dialogueManager;
 
+
+    public States DoorState
+    {
+        get
+        {
+            return states;
+        }
+    }
+
    
     // Start is called before the first frame update
     void Start()
     {
-        dialogueManager = FindObjectOfType<DialogueManager>();
-        dialogueManager.OnDialogueEnd += DialogueEnd;
+        //dialogueManager = FindObjectOfType<DialogueManager>();
+       //dialogueManager.OnDialogueEnd += DialogueEnd;
 
         DoorUI.SetActive(false);
         closedPos = transform.position;
         Vector3 right = transform.forward * -1;
-        openPos = closedPos + right * 6.0f;
+        openPos = closedPos + right * openSize;
+        Debug.Log(openPos);
 
         if (states == States.Open)
         {
@@ -60,7 +75,7 @@ public class DoorHandler : MonoBehaviour
 
         if (states == States.Closed && other.tag == "Player")
         {
-          
+            Debug.Log("here");
             DoorUI.SetActive(true);
             inArea = true;
         }
@@ -137,7 +152,7 @@ public class DoorHandler : MonoBehaviour
     public void OnInteract(InputAction.CallbackContext context)
     {
         // if UI is active you can press button
-        if(DoorUI.activeInHierarchy)
+        if(DoorUI.activeInHierarchy && inArea == true)
         {
             if (states == States.Open)
             {

@@ -24,7 +24,7 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         // Only start AI behavior if the door is open
-        if (door.states != DoorHandler.States.Open) return;
+        if (door.DoorState != DoorHandler.States.Open) return;
 
         if(isChasingPlayer)
         {
