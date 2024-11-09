@@ -21,13 +21,10 @@ public class ZeroGravity : MonoBehaviour
     private UnityEngine.UI.Image crosshair;
     [SerializeField]
     private UnityEngine.UI.Image grabber;
-    //<a target="_blank" href="https://icons8.com/icon/hzxuBO48ZX2S/hand-tool">Hand Tool</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
     [SerializeField]
     private Sprite openHand;
-    //<a target="_blank" href="https://icons8.com/icon/DqJqWOJWRoBO/grab-tool">Grab Tool</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
     [SerializeField]
     private Sprite closedHand;
-    //<a target="_blank" href="https://icons8.com/icon/PGVcfqoP88Q0/centre-point">Centre Point</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
     [SerializeField]
     private Sprite crosshairIcon;
 
@@ -377,7 +374,6 @@ public class ZeroGravity : MonoBehaviour
             // Update the grabber's position to match the object's screen position
             grabber.rectTransform.position = screenPoint;
             //set the hand icon on the bar
-            //<a target="_blank" href="https://icons8.com/icon/hzxuBO48ZX2S/hand-tool">Hand Tool</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
             grabber.sprite = openHand;
             grabber.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         }
@@ -389,13 +385,12 @@ public class ZeroGravity : MonoBehaviour
             // Update the grabber's position to match the object's screen position
             grabber.rectTransform.position = screenPoint;
             //set the closed hand icon on the bar
-            //<a target="_blank" href="https://icons8.com/icon/DqJqWOJWRoBO/grab-tool">Grab Tool</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
             grabber.sprite = closedHand;
             grabber.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         }
         else 
         {
-            // If no grabbable object is within range, reset crosshair to center of the screen
+            // If no grabbable object is within range, reset grabber to center of the screen
            grabber.rectTransform.position = new Vector2(Screen.width / 2, Screen.height / 2);
             //set the grabber to null
             grabber.sprite = null;
