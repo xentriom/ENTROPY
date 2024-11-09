@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 7082347243552335248}
   - component: {fileID: 7082347243552335249}
   - component: {fileID: 7082347243552335250}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,6 +196,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3e01d445-5e95-48de-b355-6b2149cba8a0
     m_ActionName: Dialogue/ContinueDialogue[/Keyboard/f,/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b1f93c54-c188-453f-a962-c46a379aae1e
+    m_ActionName: Tutorial/Continue[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b8c8588d-2228-4d45-8742-8154b3e8a32b
+    m_ActionName: Tutorial/PanCamera[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2eba8315-cbca-4c7b-8d5f-2add2398c9bb
+    m_ActionName: Tutorial/MoveForward[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a7908b73-e717-45d1-9025-c284d43856e8
+    m_ActionName: Tutorial/Interact[/Keyboard/z]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls

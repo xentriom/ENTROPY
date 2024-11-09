@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4297842103624984502}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CryoChamber 1
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,6 +124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CryoCore
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b231e56786934194ea633207079ab92c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b231e56786934194ea633207079ab92c, type: 3}
 --- !u!1 &5736255377846576949 stripped
@@ -198,6 +202,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: de9e8c356576e66428acb9fbc40b4635, type: 3}
       propertyPath: m_Name
       value: CryoBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: de9e8c356576e66428acb9fbc40b4635, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de9e8c356576e66428acb9fbc40b4635, type: 3}
@@ -274,6 +282,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CryoGlass
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7c521dc29e074364d8b0cd3dc1c959e7, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c521dc29e074364d8b0cd3dc1c959e7, type: 3}
 --- !u!4 &4958627511997631086 stripped
@@ -344,6 +356,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CryoDoorL
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 833b2fd37a5cfdb4a8ed0cbc08e6f225, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 833b2fd37a5cfdb4a8ed0cbc08e6f225, type: 3}
 --- !u!4 &4958627511202179359 stripped
@@ -413,6 +429,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a1de98f2ece498a4d8d10e58fcd98aca, type: 3}
       propertyPath: m_Name
       value: CryoDoorR
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a1de98f2ece498a4d8d10e58fcd98aca, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1de98f2ece498a4d8d10e58fcd98aca, type: 3}

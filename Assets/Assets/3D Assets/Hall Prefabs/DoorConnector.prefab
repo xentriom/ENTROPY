@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2177853842039973546}
   - component: {fileID: 4425583691023732676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2763172375378062530}
   - component: {fileID: 4202354935586992998}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9033281839322417657}
   - component: {fileID: 2298046384169290735}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,9 +141,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6474012324743011634}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DoorConnector
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 4828958935050960270}
   - component: {fileID: 8407150697751392811}
   - component: {fileID: 6001262341326816993}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DoorConnector 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 521615277939182796}
   - component: {fileID: 7302577728932255452}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8242475873663566578}
   - component: {fileID: 3547288990614067298}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6911861461561838456}
   - component: {fileID: 6031114268826107364}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

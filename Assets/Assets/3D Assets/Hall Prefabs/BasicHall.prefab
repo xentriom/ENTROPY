@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5639555876859873826}
   - component: {fileID: 9017660753175504434}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5666950855202456151}
   - component: {fileID: 1157460091094532948}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,9 +97,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8908195036594607982}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BasicHall
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,7 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3225197374294024281}
   - component: {fileID: 6184454412149966517}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 233230874763664002}
   - component: {fileID: 4501725453528206566}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 5956585184013790571}
   - component: {fileID: 5111528307433079924}
   - component: {fileID: 6708879621555273925}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallBasic (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8757095497220238924}
   - component: {fileID: 7711844100042128737}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6699404695394140923}
   - component: {fileID: 6172543300492795295}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 7052148351345034051}
   - component: {fileID: 6228926999470542054}
   - component: {fileID: 8184570301789042732}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallBasic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
