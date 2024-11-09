@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     public event Action<int> OnDialogueEnd;
     private PlayerController playerController;
     public GameObject player; //need reference to player GameObject
-    private PlayerZeroG playerManager;
+    private ZeroGravity playerManager;
 
     // Dialogue sequence tracking
     private int currentDialogueIndex = 0;
@@ -46,15 +46,15 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         //get reference to playerManager
-        playerManager = player.GetComponent<PlayerZeroG>();
+        playerManager = player.GetComponent<ZeroGravity>();
         // Hide dialogue canvas on start
         dialogueCanvas.enabled = false;
     }
 
     private void Update()
     {
-        // Check for skip input each frame, only if not viewing puzzle
-        if (playerManager.ViewingPuzzle == false)
+        // Check for skip input each frame, only if not viewing puzzle (can move is true)
+        if (playerManager.CanMove == true)
         {
             if (playerController.Dialogue.ContinueDialogue.triggered)
             {

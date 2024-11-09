@@ -7048,9 +7048,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzleCanvas: {fileID: 1334754954}
   interactionDistance: 4
-  player: {fileID: 0}
+  player: {fileID: 702520030}
   puzzleComplete: 0
-  crosshair: {fileID: 0}
+  crosshair: {fileID: 702520031}
   interactionText: {fileID: 358742543}
   audioSource: {fileID: 469300547}
   puzzleStart: {fileID: 8300000, guid: 19271e8fc760365498cfc0918b204a6e, type: 3}
@@ -7465,7 +7465,7 @@ MonoBehaviour:
   dialogueTextUI: {fileID: 1171086734}
   audioSource: {fileID: 42302366}
   typewriterSpeed: 0.04
-  player: {fileID: 0}
+  player: {fileID: 702520030}
 --- !u!114 &481410332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10554,6 +10554,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 261955185}
     m_Modifications:
+    - target: {fileID: 635777291796379754, guid: a7cd092c6887c734bb4905b40210fcfd, type: 3}
+      propertyPath: respawnLoc
+      value: 
+      objectReference: {fileID: 1518446336}
     - target: {fileID: 635777291796379756, guid: a7cd092c6887c734bb4905b40210fcfd, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -10607,6 +10611,16 @@ PrefabInstance:
 --- !u!4 &702520029 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 635777291796379756, guid: a7cd092c6887c734bb4905b40210fcfd, type: 3}
+  m_PrefabInstance: {fileID: 702520028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &702520030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 635777291796379757, guid: a7cd092c6887c734bb4905b40210fcfd, type: 3}
+  m_PrefabInstance: {fileID: 702520028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &702520031 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 635777292797632697, guid: a7cd092c6887c734bb4905b40210fcfd, type: 3}
   m_PrefabInstance: {fileID: 702520028}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &712423034
@@ -23198,7 +23212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   chaseDistance: 5
-  player: {fileID: 0}
+  player: {fileID: 702520030}
   startingWaypoint: {fileID: 1868510325}
   door: {fileID: 1802984285}
   useRandomRoaming: 1

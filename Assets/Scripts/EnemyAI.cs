@@ -98,7 +98,7 @@ public class EnemyAI : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Teleport player to respawn location
-            player.transform.position = player.GetComponent<PlayerZeroG>().respawnLoc.transform.position;
+            player.transform.position = player.GetComponent<ZeroGravity>().respawnLoc.transform.position;
 
             // Teleport enemy to the starting waypoint
             transform.position = startingWaypoint.transform.position;

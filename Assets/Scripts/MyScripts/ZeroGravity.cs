@@ -41,6 +41,8 @@ public class ZeroGravity : MonoBehaviour
     private float rotationVert = 0.0f;
     private float rotationZ = 0.0f;
 
+    public GameObject respawnLoc;
+
 /*    // Smooth rotation variables
     private float targetRotationHoriz = 0.0f;
     private float targetRotationVert = 0.0f;
@@ -105,10 +107,16 @@ public class ZeroGravity : MonoBehaviour
 
     //Properties
     //this property allows showTutorialMessages to be assigned outside of the script. Needed for the tutorial mission
-    public bool ShowTurorialMessages
+    public bool ShowTutorialMessages
     {
         get { return showTutorialMessages; }
         set { showTutorialMessages = value; }
+    }
+
+    public bool CanMove
+    {
+        get { return canMove; }
+        set { canMove = value; }
     }
 
     // Start is called before the first frame update

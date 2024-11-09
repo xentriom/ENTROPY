@@ -18,7 +18,7 @@ public class TriggerPuzzle : MonoBehaviour
 
     public GameObject crosshair; // Reference to the crosshair image
     public GameObject interactionText; // Reference to the TextMeshPro component for the interaction message
-    private PlayerZeroG playerManager;
+    private ZeroGravity playerManager;
 
     //audio
     public AudioSource audioSource;
@@ -36,7 +36,7 @@ public class TriggerPuzzle : MonoBehaviour
     {
         puzzleCanvas.enabled = false;
 
-        playerManager = player.GetComponent<PlayerZeroG>();
+        playerManager = player.GetComponent<ZeroGravity>();
 
 
         StartCoroutine(CheckDistance()); // Start the distance checking coroutine
@@ -101,8 +101,7 @@ public class TriggerPuzzle : MonoBehaviour
             audioSource.PlayOneShot(puzzleStart);
         }
         puzzleCanvas.enabled = showingPuzzle;
-        playerManager.ViewingPuzzle = showingPuzzle;
-        playerManager.ToggleVCam();
+        playerManager.CanMove = showingPuzzle;
         Cursor.lockState = showingPuzzle ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = showingPuzzle;
         crosshair.SetActive(!showingPuzzle); // Hide crosshair when puzzle is active
