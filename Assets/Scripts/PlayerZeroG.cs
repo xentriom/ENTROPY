@@ -1,4 +1,4 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,7 +6,6 @@ using System.ComponentModel.Design.Serialization;
 using Cinemachine;
 using UnityEngine.UI;
 using TMPro;
-//using Microsoft.Unity.VisualStudio.Editor;
 
 
 [RequireComponent (typeof(Rigidbody))]
@@ -14,8 +13,6 @@ using TMPro;
 public class PlayerZeroG : MonoBehaviour
 {
     [Header("== Player Movement Settings ==")]
-    [SerializeField]
-    private float rotateSpeedHorizontal = 2.0f;
     [SerializeField]
     private float rotateSpeedVertical = 2.0f;
     [SerializeField]
@@ -69,11 +66,6 @@ public class PlayerZeroG : MonoBehaviour
     private Cinemachine.CinemachineVirtualCamera vCam;
     [SerializeField]
     private UnityEngine.UI.Image crosshair;
-    //FOV references
-    private float horizontalMax = 60.0f;
-    private float horizontalMin = -60.0f;
-    private float verticalMax = 70.0f;
-    private float verticalMin = -30.0f;
 
 
     //Input Values
@@ -87,25 +79,12 @@ public class PlayerZeroG : MonoBehaviour
     // Track if the movement keys were released
     private bool movementKeysReleased;
 
-    //Puzzle associated variables
-    private bool viewingPuzzle = false;
-    private Quaternion savedRotation;
-
-    //respawn
-    public GameObject respawnLoc;
-
     //Properties
     //this property allows showTutorialMessages to be assigned outside of the script. Needed for the tutorial mission
-    public bool ShowTutorialMessages
+    public bool ShowTurorialMessages
     {
         get { return showTutorialMessages; }
         set { showTutorialMessages = value; }
-    }
-
-    public bool ViewingPuzzle
-    {
-        get { return viewingPuzzle;  }
-        set { viewingPuzzle = value; }
     }
 
     // Start is called before the first frame update
@@ -119,40 +98,38 @@ public class PlayerZeroG : MonoBehaviour
 
         // Access the Cinemachine POV component to read axis values
         pov = vCam.GetCinemachineComponent<Cinemachine.CinemachinePOV>();
-
-        rotateSpeedHorizontal = pov.m_HorizontalAxis.m_MaxSpeed;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-            // Get the current horizontal and vertical axis values
-            float horizontalAxis = pov.m_HorizontalAxis.Value;
-            float verticalAxis = pov.m_VerticalAxis.Value;
+        // Get the current horizontal and vertical axis values
+        float horizontalAxis = pov.m_HorizontalAxis.Value;
+        float verticalAxis = pov.m_VerticalAxis.Value;
 
-            if (!isGrabbing)
+        if (!isGrabbing)
+        {
+            //handle how the player moves in open space
+            HandleFreeMovement();
+
+/*            // Check if the player reaches horizontal limits and rotate the mesh accordingly
+            if (horizontalAxis >= horizontalMax - 1.0f || horizontalAxis <= horizontalMin + 1.0f)
             {
-                //handle how the player moves in open space
-                HandleFreeMovement();
+                RotateMesh(characterPivot.transform.up, horizontalAxis, horizontalMax, horizontalMin, rotateSpeedHorizontal);
+            }*/
 
-                // Check if the player reaches horizontal limits and rotate the mesh accordingly
-                if (horizontalAxis >= horizontalMax - 1.0f || horizontalAxis <= horizontalMin + 1.0f)
-                {
-                    RotateMesh(characterPivot.transform.up, horizontalAxis, horizontalMax, horizontalMin, rotateSpeedHorizontal);
-                }
-
-                // Check if the player reaches vertical limits and rotate the mesh accordingly
-                if (verticalAxis >= verticalMax - 1.0f || verticalAxis <= verticalMin + 1.0f)
-                {
-                    RotateMesh(characterPivot.transform.right, verticalAxis, verticalMax, verticalMin, rotateSpeedVertical);
-                }
-            }
-            else if (isGrabbing)
+/*            // Check if the player reaches vertical limits and rotate the mesh accordingly
+            if (verticalAxis >= verticalMax - 1.0f || verticalAxis <= verticalMin + 1.0f)
             {
-                HandleGrabMovement(horizontalAxis, verticalAxis);
-            }
-            GrabUIText();
+                RotateMesh(characterPivot.transform.right, verticalAxis, verticalMax, verticalMin, rotateSpeedVertical);
+            }*/
+        }
+        else if (isGrabbing)
+        {
+            HandleGrabMovement(horizontalAxis, verticalAxis);
+        }
 
+        GrabUIText();
     }
 
     //This method will handle all inputs and how they make the ship move
@@ -166,9 +143,9 @@ public class PlayerZeroG : MonoBehaviour
         // Thrust Forward (propulsion with cooldown)
         if (thrust1D > 0.1f || thrust1D < -0.1f)
         {
-            float currentThrust = thrust;
-            rb.AddForce(mainCam.transform.forward * thrust1D * currentThrust * Time.deltaTime);
-            glide = thrust;
+                float currentThrust = thrust;
+                rb.AddForce(mainCam.transform.forward * thrust1D * currentThrust * Time.deltaTime);
+                glide = thrust;
         }
         else
         {
@@ -212,34 +189,34 @@ public class PlayerZeroG : MonoBehaviour
         //Propel off bar logic
         if (isGrabbing)
         {
-            // Check if the player reaches horizontal limits and rotate the mesh accordingly
+/*            // Check if the player reaches horizontal limits and rotate the mesh accordingly
             if (horizontalAxisPos >= horizontalMax - 1.0f || horizontalAxisPos <= horizontalMin + 1.0f)
             {
                 //allow to look around
                 RotateMesh(characterPivot.transform.up, horizontalAxisPos, horizontalMax, horizontalMin, rotateSpeedHorizontal);
-            }
+            }*/
 
             PropelOffBar();
         }
         else if (!isGrabbing)
         {
-            pov.m_HorizontalAxis.m_MaxValue = horizontalMax;
-            pov.m_HorizontalAxis.m_MinValue = horizontalMin;
+/*            pov.m_HorizontalAxis.m_MaxValue = horizontalMax;
+            pov.m_HorizontalAxis.m_MinValue = horizontalMin;*/
         }
     }
 
     private void RotateMesh(Vector3 rotationAxis, float axisValue, float maxAxis, float minAxis, float rotateSpeed)
     {
 
-        // Apply rotational torque with damping
-        if (axisValue >= maxAxis - 1.0f)
-        {
-            rb.AddTorque(rotationAxis * rotateSpeed * Time.deltaTime);
-        }
-        else if (axisValue <= minAxis + 1.0f)
-        {
-            rb.AddTorque(-rotationAxis * rotateSpeed * Time.deltaTime);
-        }
+            // Apply rotational torque with damping
+            if (axisValue >= maxAxis - 1.0f)
+            {
+                rb.AddTorque(rotationAxis * rotateSpeed * Time.deltaTime);
+            }
+            else if (axisValue <= minAxis + 1.0f)
+            {
+                rb.AddTorque(-rotationAxis * rotateSpeed * Time.deltaTime);
+            }
     }
 
     // Try to grab a bar by raycasting
@@ -256,9 +233,9 @@ public class PlayerZeroG : MonoBehaviour
         Vector2 paddedMin = new Vector2(screenPoint.x - grabPadding, screenPoint.y - grabPadding);
         Vector2 paddedMax = new Vector2(screenPoint.x + grabPadding, screenPoint.y + grabPadding);
 
-        for (float x = paddedMin.x; x < paddedMax.x; x += grabPadding / 2)
+        for(float x = paddedMin.x; x < paddedMax.x; x += grabPadding / 2)
         {
-            for (float y = paddedMin.y; y < paddedMax.y; y += grabPadding / 2)
+            for(float y = paddedMin.y; y < paddedMax.y; y += grabPadding / 2)
             {
                 Ray ray = mainCam.ScreenPointToRay(new Vector3(x, y, 0));
                 RaycastHit hit;
@@ -321,24 +298,17 @@ public class PlayerZeroG : MonoBehaviour
     {
         if (showTutorialMessages)
         {
-            
             if (isGrabbing)
             {
-                
-                    grabUIText.text = "'WASD'";
-                
+                grabUIText.text = "'WASD'";
             }
             else if (IsInRangeofBar() && !isGrabbing)
-            {
-                
-                    grabUIText.text = "press and hold 'Right Mouse Button'";
-                
+            { 
+                grabUIText.text = "press and hold 'Right Mouse Button'";
             }
-            else if (!isGrabbing && !IsInRangeofBar())
+            else if(!isGrabbing && !IsInRangeofBar())
             {
-                
-                    grabUIText.text = null;
-                
+                grabUIText.text = null;
             }
         }
         else if (!showTutorialMessages)
@@ -351,13 +321,13 @@ public class PlayerZeroG : MonoBehaviour
     private void PropelOffBar()
     {
         //if the player is grabbing and no movement buttons are currently being pressed
-        if (isGrabbing)
+        if(isGrabbing)
         {
             // Check if no movement buttons are currently being pressed
             bool isThrusting = Mathf.Abs(thrust1D) > 0.1f;
             bool isStrafing = Mathf.Abs(strafe1D) > 0.1f;
 
-            if (movementKeysReleased && (isThrusting || isStrafing))
+            if(movementKeysReleased && (isThrusting || isStrafing))
             {
                 //initialize a vector 3 for the propel direction
                 Vector3 propelDirection = Vector3.zero;
@@ -391,20 +361,20 @@ public class PlayerZeroG : MonoBehaviour
         }
     }
 
-    private void IncreaseLookAroundWhileGrabbing()
+/*    private void IncreaseLookAroundWhileGrabbing()
     {
         if (isGrabbing)
         {
             pov.m_HorizontalAxis.m_MaxValue = 180;
             pov.m_HorizontalAxis.m_MinValue = -180;
         }
-        else if (!isGrabbing)
+        else if(!isGrabbing)
         {
             pov.m_HorizontalAxis.m_MaxValue = horizontalMax;
             pov.m_HorizontalAxis.m_MinValue = horizontalMin;
         }
     }
-
+*/
     void OnDrawGizmos()
     {
         // Visualize the crosshair padding as a box in front of the camera
@@ -429,18 +399,6 @@ public class PlayerZeroG : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void ToggleVCam()
-    {
-        if(vCam.enabled)
-        {
-            savedRotation = mainCam.transform.rotation;
-        }
-        vCam.enabled = !vCam.enabled;
-        mainCam.transform.rotation = savedRotation;
-        //Debug.Log("Cam Rotation " + mainCam.transform.rotation);
-        //Debug.Log("Saved Rotation " + savedRotation);
     }
 
     #region Input Methods
