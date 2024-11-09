@@ -3441,6 +3441,10 @@ PrefabInstance:
       propertyPath: DoorUI
       value: 
       objectReference: {fileID: 900941002}
+    - target: {fileID: 7082347243552335249, guid: 717b0dcac55cba24d928f3fba6d35536, type: 3}
+      propertyPath: states
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7082347243552335275, guid: 717b0dcac55cba24d928f3fba6d35536, type: 3}
       propertyPath: m_Name
       value: Door (3)
@@ -17802,6 +17806,10 @@ PrefabInstance:
       propertyPath: DoorUI
       value: 
       objectReference: {fileID: 900941002}
+    - target: {fileID: 7082347243552335249, guid: 717b0dcac55cba24d928f3fba6d35536, type: 3}
+      propertyPath: states
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7082347243552335275, guid: 717b0dcac55cba24d928f3fba6d35536, type: 3}
       propertyPath: m_Name
       value: Door (2)
@@ -32412,6 +32420,10 @@ PrefabInstance:
       propertyPath: DoorUI
       value: 
       objectReference: {fileID: 900941002}
+    - target: {fileID: 7082347243552335249, guid: 717b0dcac55cba24d928f3fba6d35536, type: 3}
+      propertyPath: states
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7082347243552335275, guid: 717b0dcac55cba24d928f3fba6d35536, type: 3}
       propertyPath: m_Name
       value: Door
