@@ -9,4 +9,8 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+    public void StartTestScene()
+    {
+        SceneManager.LoadScene("DemoScene");
+    }
 }
