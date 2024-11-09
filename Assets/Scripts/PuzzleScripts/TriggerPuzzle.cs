@@ -101,7 +101,7 @@ public class TriggerPuzzle : MonoBehaviour
             audioSource.PlayOneShot(puzzleStart);
         }
         puzzleCanvas.enabled = showingPuzzle;
-        playerManager.CanMove = showingPuzzle;
+        playerManager.CanMove = !showingPuzzle;
         Cursor.lockState = showingPuzzle ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = showingPuzzle;
         crosshair.SetActive(!showingPuzzle); // Hide crosshair when puzzle is active
