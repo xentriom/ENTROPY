@@ -10578,6 +10578,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zero G Player
       objectReference: {fileID: 0}
+    - target: {fileID: 635777291796379757, guid: a7cd092c6887c734bb4905b40210fcfd, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 635777293568913308, guid: a7cd092c6887c734bb4905b40210fcfd, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7cd092c6887c734bb4905b40210fcfd, type: 3}
 --- !u!4 &702520029 stripped
@@ -22416,7 +22424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518446336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 5.5}
+  m_LocalPosition: {x: 0, y: -0.23, z: 2.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 261955185}
