@@ -116,6 +116,9 @@ public class ZeroGravity : MonoBehaviour
         set { canMove = value; }
     }
 
+    // getter for isGrabbing
+    public bool IsGrabbing => isGrabbing;
+
     // Start is called before the first frame update
     void Start()
     {
