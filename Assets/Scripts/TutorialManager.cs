@@ -1,11 +1,12 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 
 public class TutorialManager : MonoBehaviour
 {
+    public static TutorialManager Instance { get; private set; }
+
     public TutorialTask[] tutorialTasks;
     public TMP_Text instructionText;
     public Image actionImage;
@@ -20,6 +21,14 @@ public class TutorialManager : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         playerManager = player.GetComponent<ZeroGravity>();
     }
 
@@ -31,7 +40,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator StartTutorial()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         tutorialCanvas.enabled = true;
 
         while (currentStep < tutorialTasks.Length)

@@ -25,6 +25,9 @@ public class DialogueManager : MonoBehaviour
     private int currentDialogueIndex = 0;
     private int currentSequenceIndex = -1;
     private bool isSkipping = false;
+    private bool isDialogueActive = false;
+
+    public bool IsDialogueActive => isDialogueActive;
 
     // Initialization
     private void Awake()
@@ -75,6 +78,7 @@ public class DialogueManager : MonoBehaviour
             currentSequenceIndex = sequenceIndex;
             currentDialogueIndex = 0;
             dialogueCanvas.enabled = true;
+            isDialogueActive = true;
             StartCoroutine(DisplayDialogue());
         }
     }
@@ -111,7 +115,8 @@ public class DialogueManager : MonoBehaviour
             currentDialogueIndex++;
         }
 
-        // Hide canvas and invoke end event
+        // Dialogue sequence complete
+        isDialogueActive = false;
         dialogueCanvas.enabled = false;
         OnDialogueEnd?.Invoke(currentSequenceIndex);
     }
@@ -145,6 +150,32 @@ public class DialogueManager : MonoBehaviour
             }
 
             yield return new WaitForSeconds(typewriterSpeed);
+        }
+    }
+
+    /// <summary>
+    /// Pauses the current dialogue, stopping any audio and disabling input.
+    /// </summary>
+    public void PauseDialogue()
+    {
+        if (isDialogueActive)
+        {
+            StopCoroutine(nameof(DisplayDialogue));
+            audioSource.Pause();
+            playerController.Dialogue.ContinueDialogue.Disable();
+        }
+    }
+
+    /// <summary>
+    /// Restarts the current dialogue sequence from the last dialogue index.
+    /// </summary>
+    public void ResumeDialogue()
+    {
+        if (isDialogueActive)
+        {
+            StartCoroutine(DisplayDialogue());
+            audioSource.UnPause();
+            playerController.Dialogue.ContinueDialogue.Enable();
         }
     }
 }

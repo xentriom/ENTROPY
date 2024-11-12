@@ -7198,7 +7198,6 @@ GameObject:
   m_Component:
   - component: {fileID: 481410330}
   - component: {fileID: 481410331}
-  - component: {fileID: 481410332}
   - component: {fileID: 481410333}
   m_Layer: 0
   m_Name: UITextManager
@@ -7337,23 +7336,6 @@ MonoBehaviour:
   audioSource: {fileID: 42302366}
   typewriterSpeed: 0.04
   player: {fileID: 702520030}
---- !u!114 &481410332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481410329}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44cd35a781e4b4b76b8b836ea4ed8958, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tutorialCanvas: {fileID: 407681950}
-  tutorialText: {fileID: 0}
-  inputActionAsset: {fileID: -944628639613478452, guid: 62bee993b4da21145a34bb9e2304d3d3, type: 3}
-  initialDelay: 2
-  delayBetweenSteps: 1
 --- !u!114 &481410333
 MonoBehaviour:
   m_ObjectHideFlags: 0
