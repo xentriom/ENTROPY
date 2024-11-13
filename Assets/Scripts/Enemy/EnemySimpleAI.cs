@@ -1,13 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class EnemyAI : MonoBehaviour
+public class EnemySimpleAI : MonoBehaviour
 {
     public float speed = 2.0f;
     public float chaseDistance = 5.0f;
     public float escapeDistance = 10f;
     public GameObject player;
-    public GameObject enemyFollower;
     public Waypoint startingWaypoint; // Starting waypoint for teleportation
     public DoorHandler door;
     public bool useRandomRoaming; // Toggle to switch between roaming and tracking modes
@@ -30,11 +29,10 @@ public class EnemyAI : MonoBehaviour
 
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        float distanceToFollower = Vector3.Distance(transform.position, enemyFollower.transform.position);
 
         if (isChasingPlayer)
         {
-            if(distanceToPlayer >= escapeDistance)
+            if (distanceToPlayer >= escapeDistance)
             {
                 isChasingPlayer = false;
             }
@@ -42,11 +40,11 @@ public class EnemyAI : MonoBehaviour
             {
                 ChasePlayer();
             }
-            
+
         }
         else
         {
-            
+
 
             if (distanceToPlayer <= chaseDistance)
             {
@@ -64,7 +62,7 @@ public class EnemyAI : MonoBehaviour
                 TrackPlayer();
             }
         }
-        
+
     }
 
     void ChasePlayer()
@@ -107,30 +105,20 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        // Teleport player to respawn location
-    //        player.transform.position = player.GetComponent<ZeroGravity>().respawnLoc.transform.position;
-
-    //        // Teleport enemy to the starting waypoint
-    //        transform.position = startingWaypoint.transform.position;
-
-    //        // Reset path and current waypoint
-    //        currentWaypoint = startingWaypoint;
-    //        FindPlayerPath();
-    //    }
-    //}
-
-    public void Reset()
+    void OnTriggerEnter(Collider other)
     {
-        // Teleport enemy to the starting waypoint
-        transform.position = startingWaypoint.transform.position;
+        if (other.CompareTag("Player"))
+        {
+            // Teleport player to respawn location
+            player.transform.position = player.GetComponent<ZeroGravity>().respawnLoc.transform.position;
 
-        // Reset path and current waypoint
-        currentWaypoint = startingWaypoint;
-        FindPlayerPath();
+            // Teleport enemy to the starting waypoint
+            transform.position = startingWaypoint.transform.position;
+
+            // Reset path and current waypoint
+            currentWaypoint = startingWaypoint;
+            FindPlayerPath();
+        }
     }
 
     void FindPlayerPath()
