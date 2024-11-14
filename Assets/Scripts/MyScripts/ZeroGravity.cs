@@ -83,7 +83,7 @@ public class ZeroGravity : MonoBehaviour
     [SerializeField]
     private float propelThrust = 50000f;
     [SerializeField]
-    private float propelStrafeThrust = 50000f;
+    private float propelOffWallThrust = 50000f;
 
 
     [Header("== UI Settings ==")]
@@ -148,44 +148,6 @@ public class ZeroGravity : MonoBehaviour
         }
     }
 
-/*    private bool RayCastHelper(string tagPhrase)
-    {
-        bool rayHit = false;
-
-        // Get the position of the crosshair in screen space
-        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(null, crosshair.rectTransform.position);
-
-        // Apply padding to the screen point
-        float screenWidth = Screen.width;
-        float screenHeight = Screen.height;
-
-        Vector2 paddedMin = new Vector2(screenPoint.x - grabPadding, screenPoint.y - grabPadding);
-        Vector2 paddedMax = new Vector2(screenPoint.x + grabPadding, screenPoint.y + grabPadding);
-
-        for (float x = paddedMin.x; x < paddedMax.x; x += grabPadding / 2)
-        {
-            for (float y = paddedMin.y; y < paddedMax.y; y += grabPadding / 2)
-            {
-                Ray ray = cam.ScreenPointToRay(new Vector3(x, y, 0));
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, grabRange, barLayer))
-                {
-                    Debug.Log("Raycast hit: " + hit.transform.name); // Debug the hit
-
-                    // Check if the object has the "Grabbable" tag
-                    if (hit.transform.CompareTag(tagPhrase))
-                    {
-                        rayHit = true;
-                        return rayHit;
-                    }
-                }
-            }
-        }
-        return rayHit;
-        Debug.Log("Raycast did not hit anything");
-    }
-*/
     private void RotateCam()
     {
         // Horizontal and vertical rotation
@@ -214,7 +176,7 @@ public class ZeroGravity : MonoBehaviour
     private void PropelOffWall()
     {
         // Adjust the forward thrust based on your requirements
-        Vector3 propelDirection = cam.transform.forward * propelThrust / 4f;
+        Vector3 propelDirection = cam.transform.forward * propelOffWallThrust;
 
         if (nearBarrier && upDown1D > 0.1f)
         {
@@ -480,7 +442,7 @@ public class ZeroGravity : MonoBehaviour
                 {
                     //release the bar and calculate the vector to propel based on the right look
                     ReleaseBar();
-                    propelDirection += cam.transform.right * strafe1D * propelStrafeThrust;
+                    propelDirection += cam.transform.right * strafe1D * propelThrust;
                     Debug.Log("Propelled right or left");
                 }
                 //add the propel force to the rigid body
