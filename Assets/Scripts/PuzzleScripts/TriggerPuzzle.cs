@@ -17,6 +17,7 @@ public class TriggerPuzzle : MonoBehaviour
     private bool showingPuzzle = false;
 
     public GameObject crosshair; // Reference to the crosshair image
+    public GameObject playerUICanvas;
     public GameObject interactionText; // Reference to the TextMeshPro component for the interaction message
     private ZeroGravity playerManager;
 
@@ -104,7 +105,8 @@ public class TriggerPuzzle : MonoBehaviour
         playerManager.CanMove = !showingPuzzle;
         Cursor.lockState = showingPuzzle ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = showingPuzzle;
-        crosshair.SetActive(!showingPuzzle); // Hide crosshair when puzzle is active
+        //crosshair.SetActive(!showingPuzzle); // Hide crosshair when puzzle is active
+        playerUICanvas.SetActive(!showingPuzzle);
         player.GetComponent<Rigidbody>().isKinematic = showingPuzzle;
     }
 }

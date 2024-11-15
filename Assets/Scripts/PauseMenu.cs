@@ -56,7 +56,7 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void Pause()
+    public void Pause()
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
@@ -71,13 +71,16 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Options selected");
     }
 
-    public void Menu()
+    public void LoadMenu()
     {
         Debug.Log("Menu selected");
+        IsPaused = false;
+        SceneManager.LoadScene("MainMenu");
     }
 
-    public void QuitButton()
+    public void Quit()
     {
         Debug.Log("Quit selected");
+        Application.Quit();
     }
 }
