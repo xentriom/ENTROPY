@@ -23,6 +23,8 @@ public class DoorHandler : MonoBehaviour
     public bool dialogueComplete = false;
     private bool inArea = false;
     private bool brokenBool = true;
+    [SerializeField]
+    private bool hoveringButton = false;
 
     [SerializeField]
     private States states = States.Closed;
@@ -37,6 +39,12 @@ public class DoorHandler : MonoBehaviour
     private Vector3 closedPos;
 
     private DialogueManager dialogueManager;
+
+    public bool HoveringButton
+    {
+        get { return hoveringButton; }
+        set { hoveringButton = value; }
+    }
 
 
     public States DoorState
@@ -69,39 +77,26 @@ public class DoorHandler : MonoBehaviour
         //dialogueManager.StartDialogueSequence(0);
     }
 
-
-    void OnTriggerEnter(Collider other)
-    {
-
-        if (states == States.Closed && other.tag == "Player")
-        {
-            Debug.Log("here");
-            DoorUI.SetActive(true);
-            inArea = true;
-        }
-   
-        
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            DoorUI.SetActive(false);
-            inArea = false;
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
 
 
-        // opens ui if player has been sitting with the trigger box
-        if (dialogueComplete && inArea)
+        if (states != States.Locked && hoveringButton == true)
         {
             DoorUI.SetActive(true);
         }
+        else
+        {
+            DoorUI.SetActive(false);
+        }
+
+
+        //// opens ui if player has been sitting with the trigger box
+        //if (dialogueComplete && inArea)
+        //{
+        //    DoorUI.SetActive(true);
+        //}
 
         // handles different door interactions
         switch(states)
@@ -183,8 +178,6 @@ public class DoorHandler : MonoBehaviour
 
         }
 
-        Debug.Log(sinTime);
-
 
     }
 
@@ -192,7 +185,7 @@ public class DoorHandler : MonoBehaviour
     public void OnInteract(InputAction.CallbackContext context)
     {
         // if UI is active you can press button
-        if(DoorUI.activeInHierarchy && inArea == true)
+        if(DoorUI.activeInHierarchy && hoveringButton)
         {
             if (states == States.Open)
             {

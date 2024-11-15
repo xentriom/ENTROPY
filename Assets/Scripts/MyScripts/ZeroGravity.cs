@@ -38,6 +38,9 @@ public class ZeroGravity : MonoBehaviour
     private float rotationVert = 0.0f;
     private float rotationZ = 0.0f;
 
+    // door interaction
+    private Transform lastButton;
+
     public GameObject respawnLoc;
 
 /*    // Smooth rotation variables
@@ -141,6 +144,7 @@ public class ZeroGravity : MonoBehaviour
         if (canMove)
         {
             RotateCam();
+            LookingAtButton();
             HandleGrabMovement();
             PropelOffWall();
             UpdateGrabberPosition();
@@ -280,6 +284,37 @@ public class ZeroGravity : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void LookingAtButton()
+    {
+
+        RaycastHit hit;
+        if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, 3.0f))
+        {
+
+
+            if (hit.transform.gameObject.tag == "DoorButton" && lastButton != hit.transform)
+            {
+                Debug.Log(hit.transform.gameObject.tag);
+
+                
+                hit.transform.parent.transform.Find("DoorPart").GetComponent<DoorHandler>().HoveringButton = true;
+                lastButton = hit.transform;
+
+            }
+            else if (hit.transform.gameObject.tag != "DoorButton" && lastButton)
+            {
+                lastButton.parent.transform.Find("DoorPart").GetComponent<DoorHandler>().HoveringButton = false;
+                Debug.Log("now false");
+                lastButton = null;
+            }
+          
+        }
+
+
+
+
     }
 
     // Try to grab a bar by raycasting
