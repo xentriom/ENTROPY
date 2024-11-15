@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Grabbable
   - Barrier
+  - DoorButton
   layers:
   - Default
   - TransparentFX

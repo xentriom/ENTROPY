@@ -14,13 +14,15 @@ public class DoorHandler : MonoBehaviour
         Closed,
         Closing,
         Open,
-        Opening
+        Opening,
+        Broken
     }
 
 
     public GameObject DoorUI = null;
     public bool dialogueComplete = false;
     private bool inArea = false;
+    private bool brokenBool = true;
 
     [SerializeField]
     private States states = States.Closed;
@@ -30,7 +32,7 @@ public class DoorHandler : MonoBehaviour
     [SerializeField]
     private float openSize = 8.0f;
 
-    private float sinTime;
+    private float sinTime = 0.0f;
     private Vector3 openPos;
     private Vector3 closedPos;
 
@@ -53,12 +55,12 @@ public class DoorHandler : MonoBehaviour
        //dialogueManager.OnDialogueEnd += DialogueEnd;
 
         DoorUI.SetActive(false);
+        //closedPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         closedPos = transform.position;
         Vector3 right = transform.forward * -1;
         openPos = closedPos + right * openSize;
-        Debug.Log(openPos);
 
-        if (states == States.Open)
+        if (states == States.Open || states == States.Broken)
         {
             transform.position = openPos;
         }
@@ -70,8 +72,6 @@ public class DoorHandler : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-
-        Debug.Log(states.ToString());
 
         if (states == States.Closed && other.tag == "Player")
         {
@@ -119,6 +119,7 @@ public class DoorHandler : MonoBehaviour
                     else
                     {
                         states = States.Open;
+                        sinTime = 0.0f;
                     }
 
 
@@ -138,12 +139,51 @@ public class DoorHandler : MonoBehaviour
                     else
                     {
                         states = States.Closed;
+                        sinTime = 0.0f;
                     }
 
                         break;
                 }
 
+            case States.Broken:
+                {
+                    if (!brokenBool && transform.position != openPos)
+                    {
+                        sinTime += Time.deltaTime * speed;
+                        sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
+                        // sin function
+                        float t = 0.5f * Mathf.Sin(sinTime - Mathf.PI / 2f) + 0.5f;
+                        transform.position = Vector3.Lerp(closedPos, openPos, t);
+
+                        if (transform.position == openPos)
+                        {
+                            brokenBool = true;
+                            sinTime = 0.0f;
+                        }
+
+                    }
+                    else if (brokenBool && transform.position != closedPos)
+                    {
+                        sinTime += Time.deltaTime * speed;
+                        sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
+                        // sin function
+                        float t = 0.5f * Mathf.Sin(sinTime - Mathf.PI / 2f) + 0.5f;
+                        transform.position = Vector3.Lerp(openPos, closedPos, t);
+
+                        if (transform.position == closedPos)
+                        {
+                            brokenBool = false;
+                            sinTime = 0.0f;
+                        }
+                    }
+
+                    break;
+
+                }
+
         }
+
+        Debug.Log(sinTime);
 
 
     }
