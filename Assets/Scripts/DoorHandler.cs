@@ -22,7 +22,7 @@ public class DoorHandler : MonoBehaviour
     public GameObject DoorUI = null;
     public bool dialogueComplete = false;
     private bool inArea = false;
-    private bool brokenBool = true;
+    private bool brokenBool = false;
     [SerializeField]
     private bool hoveringButton = false;
 
@@ -49,10 +49,7 @@ public class DoorHandler : MonoBehaviour
 
     public States DoorState
     {
-        get
-        {
-            return states;
-        }
+        get { return states; }
     }
 
    
@@ -68,7 +65,7 @@ public class DoorHandler : MonoBehaviour
         Vector3 right = transform.forward * -1;
         openPos = closedPos + right * openSize;
 
-        if (states == States.Open || states == States.Broken)
+        if (states == States.Open)
         {
             transform.position = openPos;
         }
@@ -82,7 +79,7 @@ public class DoorHandler : MonoBehaviour
     {
 
 
-        if (states != States.Locked && hoveringButton == true)
+        if ((states == States.Closed || states == States.Open) && hoveringButton == true)
         {
             DoorUI.SetActive(true);
         }
