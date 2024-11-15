@@ -18,10 +18,8 @@ public class DoorHandler : MonoBehaviour
         Broken
     }
 
-
     public GameObject DoorUI = null;
     public bool dialogueComplete = false;
-    private bool inArea = false;
     private bool brokenBool = false;
     [SerializeField]
     private bool hoveringButton = false;
@@ -38,7 +36,19 @@ public class DoorHandler : MonoBehaviour
     private Vector3 openPos;
     private Vector3 closedPos;
 
+    [SerializeField]
+    private List<GameObject> buttons = new List<GameObject>();
+
     private DialogueManager dialogueManager;
+
+    //colors
+
+    private Color redBase = new Color(0.75f, 0.20f, 0.16f);
+    private Color redEmis = new Color(1.0f, 0.22f, 0.22f);
+    private Color greenBase = new Color(0.0f, 1.0f, 0.1f);
+    private Color greenEmis = new Color(0.46f, 1.0f, 0.59f);
+    private Color yellowBase = new Color(1.0f, 0.99f, 0.37f);
+    private Color yellowEmis = new Color(1.0f, 0.56f, 0.22f);
 
     public bool HoveringButton
     {
@@ -57,10 +67,10 @@ public class DoorHandler : MonoBehaviour
     void Start()
     {
         //dialogueManager = FindObjectOfType<DialogueManager>();
-       //dialogueManager.OnDialogueEnd += DialogueEnd;
+        //dialogueManager.OnDialogueEnd += DialogueEnd;
+        GetChildButtons(transform.parent);
 
         DoorUI.SetActive(false);
-        //closedPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         closedPos = transform.position;
         Vector3 right = transform.forward * -1;
         openPos = closedPos + right * openSize;
@@ -68,7 +78,19 @@ public class DoorHandler : MonoBehaviour
         if (states == States.Open)
         {
             transform.position = openPos;
+            SetButtonColor(redBase, redEmis);
         }
+
+        if (states == States.Broken)
+        {
+            speed = 2.0f;
+            SetButtonColor(yellowBase, yellowEmis);
+        }
+        else if (states == States.Locked)
+        {
+            SetButtonColor(redBase, redEmis);
+        }
+
 
         
         //dialogueManager.StartDialogueSequence(0);
@@ -78,13 +100,17 @@ public class DoorHandler : MonoBehaviour
     void Update()
     {
 
+ 
 
-        if ((states == States.Closed || states == States.Open) && hoveringButton == true)
+        if ((states == States.Closed || states == States.Open) && hoveringButton)
         {
             DoorUI.SetActive(true);
+
+
         }
-        else
+        else if (checkOtherHovers() == false)
         {
+            
             DoorUI.SetActive(false);
         }
 
@@ -111,6 +137,7 @@ public class DoorHandler : MonoBehaviour
                     else
                     {
                         states = States.Open;
+                        SetButtonColor(redBase, redEmis);
                         sinTime = 0.0f;
                     }
 
@@ -131,6 +158,7 @@ public class DoorHandler : MonoBehaviour
                     else
                     {
                         states = States.Closed;
+                        SetButtonColor(greenBase, greenEmis);
                         sinTime = 0.0f;
                     }
 
@@ -213,5 +241,43 @@ public class DoorHandler : MonoBehaviour
         {
             states = States.Opening;
         }
+    }
+
+    private void GetChildButtons(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.gameObject.tag == "DoorButton")
+            {
+                buttons.Add(child.gameObject);
+            }
+        }
+    }
+
+    private void SetButtonColor(Color baseColor, Color emisColor)
+    {
+        foreach(GameObject button in buttons)
+        {
+            Material m = button.GetComponent<Renderer>().material;
+            m.SetColor("_Color", baseColor);
+            m.SetColor("_EmissionColor", emisColor);
+        }
+    }
+
+    // very jank fix for rn
+    private bool checkOtherHovers()
+    {
+        DoorHandler[] doors = transform.parent.parent.GetComponentsInChildren<DoorHandler>();
+
+        foreach (DoorHandler door in doors)
+        {
+            if (door.hoveringButton)
+            {
+                //Debug.Log("hovering");
+                return true;
+            }
+        }
+
+        return false;
     }
 }
