@@ -547,7 +547,7 @@ public class DrawPuzzle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
                 {
                     drawingArea.GetComponent<Image>().color = bgColor;
                 }
-                connectedDoor.GetComponent<DoorHandler>().PuzzleComplete();
+                connectedDoor.GetComponent<DoorScript>().PuzzleComplete();
                 StartCoroutine(WaitAndTogglePuzzleOff());
             }
 

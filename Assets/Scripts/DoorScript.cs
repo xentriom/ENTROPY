@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Jobs;
 
-public class DoorHandler : MonoBehaviour
+public class DoorScript : MonoBehaviour
 {
 
     public enum States
@@ -21,8 +21,6 @@ public class DoorHandler : MonoBehaviour
     public GameObject DoorUI = null;
     public bool dialogueComplete = false;
     private bool brokenBool = false;
-    [SerializeField]
-    private bool hoveringButton = false;
 
     [SerializeField]
     private States states = States.Closed;
@@ -49,13 +47,6 @@ public class DoorHandler : MonoBehaviour
     private Color greenEmis = new Color(0.46f, 1.0f, 0.59f);
     private Color yellowBase = new Color(1.0f, 0.99f, 0.37f);
     private Color yellowEmis = new Color(1.0f, 0.56f, 0.22f);
-
-    public bool HoveringButton
-    {
-        get { return hoveringButton; }
-        set { hoveringButton = value; }
-    }
-
 
     public States DoorState
     {
@@ -267,9 +258,9 @@ public class DoorHandler : MonoBehaviour
     // very jank fix for rn
     private bool checkOtherHovers()
     {
-        DoorHandler[] doors = transform.parent.parent.GetComponentsInChildren<DoorHandler>();
+        DoorScript[] doors = transform.parent.parent.GetComponentsInChildren<DoorScript>();
 
-        foreach (DoorHandler door in doors)
+        foreach (DoorScript door in doors)
         {
             if (door.hoveringButton)
             {

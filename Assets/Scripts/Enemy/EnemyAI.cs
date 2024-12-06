@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject player;
     public GameObject enemyFollower;
     public Waypoint startingWaypoint; // Starting waypoint for teleportation
-    public DoorHandler door;
+    public DoorScript door;
     public bool useRandomRoaming; // Toggle to switch between roaming and tracking modes
 
     private Waypoint currentWaypoint;
@@ -26,7 +26,7 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         // Only start AI behavior if the door is open
-        if (door.DoorState != DoorHandler.States.Open) return;
+        if (door.DoorState != DoorScript.States.Open) return;
 
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);

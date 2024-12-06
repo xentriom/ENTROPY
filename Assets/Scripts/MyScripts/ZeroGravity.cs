@@ -299,13 +299,13 @@ public class ZeroGravity : MonoBehaviour
                 Debug.Log(hit.transform.gameObject.tag);
 
                 
-                hit.transform.parent.transform.Find("DoorPart").GetComponent<DoorHandler>().HoveringButton = true;
+                hit.transform.parent.transform.Find("DoorPart").GetComponent<DoorScript>().HoveringButton = true;
                 lastButton = hit.transform;
 
             }
             else if (hit.transform.gameObject.tag != "DoorButton" && lastButton)
             {
-                lastButton.parent.transform.Find("DoorPart").GetComponent<DoorHandler>().HoveringButton = false;
+                lastButton.parent.transform.Find("DoorPart").GetComponent<DoorScript>().HoveringButton = false;
                 Debug.Log("now false");
                 lastButton = null;
             }
