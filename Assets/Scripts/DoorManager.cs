@@ -5,22 +5,27 @@ using UnityEngine;
 public class DoorManager : MonoBehaviour
 {
 
+
     [SerializeField]
-    private bool hoveringButton = false;
+    private DoorScript[] doors;
 
+    public GameObject DoorUI = null;
 
-    public bool HoveringButton
+    private GameObject currentSelectedDoor = null;
+
+    public GameObject CurrentSelectedDoor
     {
-        get { return hoveringButton; }
-        set { hoveringButton = value; }
+        get { return currentSelectedDoor; }
+        set { currentSelectedDoor = value; }
     }
+
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        doors = transform.Find("DoorGroup").GetComponentsInChildren<DoorScript>();
     }
 
     // Update is called once per frame
@@ -28,4 +33,6 @@ public class DoorManager : MonoBehaviour
     {
         
     }
+
+
 }

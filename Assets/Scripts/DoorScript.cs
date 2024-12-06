@@ -18,7 +18,9 @@ public class DoorScript : MonoBehaviour
         Broken
     }
 
-    public GameObject DoorUI = null;
+
+    private DoorManager doorManager;
+
     public bool dialogueComplete = false;
     private bool brokenBool = false;
 
@@ -29,15 +31,16 @@ public class DoorScript : MonoBehaviour
     private float speed = 1.0f;
     [SerializeField]
     private float openSize = 8.0f;
-
     private float sinTime = 0.0f;
     private Vector3 openPos;
     private Vector3 closedPos;
 
     [SerializeField]
     private List<GameObject> buttons = new List<GameObject>();
+    [SerializeField]
+    private Transform doorPart;
 
-    private DialogueManager dialogueManager;
+    //private DialogueManager dialogueManager;
 
     //colors
 
@@ -57,18 +60,15 @@ public class DoorScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //dialogueManager = FindObjectOfType<DialogueManager>();
-        //dialogueManager.OnDialogueEnd += DialogueEnd;
-        GetChildButtons(transform.parent);
+        GetChildButtons();
 
-        DoorUI.SetActive(false);
-        closedPos = transform.position;
-        Vector3 right = transform.forward * -1;
+        closedPos = doorPart.position;
+        Vector3 right = doorPart.forward * -1;
         openPos = closedPos + right * openSize;
 
         if (states == States.Open)
         {
-            transform.position = openPos;
+            doorPart.position = openPos;
             SetButtonColor(redBase, redEmis);
         }
 
@@ -82,8 +82,8 @@ public class DoorScript : MonoBehaviour
             SetButtonColor(redBase, redEmis);
         }
 
+        doorManager = FindObjectOfType<DoorManager>();
 
-        
         //dialogueManager.StartDialogueSequence(0);
     }
 
@@ -91,39 +91,18 @@ public class DoorScript : MonoBehaviour
     void Update()
     {
 
- 
-
-        if ((states == States.Closed || states == States.Open) && hoveringButton)
-        {
-            DoorUI.SetActive(true);
-
-
-        }
-        else if (checkOtherHovers() == false)
-        {
-            
-            DoorUI.SetActive(false);
-        }
-
-
-        //// opens ui if player has been sitting with the trigger box
-        //if (dialogueComplete && inArea)
-        //{
-        //    DoorUI.SetActive(true);
-        //}
-
         // handles different door interactions
         switch(states)
         {
             case States.Opening:
                 {
-                    if (transform.position != openPos)
+                    if (doorPart.position != openPos)
                     {
                         sinTime += Time.deltaTime * speed;
                         sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                         // sin function
                         float t = 0.5f * Mathf.Sin(sinTime - Mathf.PI / 2f) + 0.5f;
-                        transform.position = Vector3.Lerp(closedPos, openPos, t);
+                        doorPart.position = Vector3.Lerp(closedPos, openPos, t);
                     }
                     else
                     {
@@ -138,13 +117,13 @@ public class DoorScript : MonoBehaviour
 
             case States.Closing:
                 {
-                    if (transform.position != closedPos)
+                    if (doorPart.position != closedPos)
                     {
                         sinTime += Time.deltaTime * speed;
                         sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                         // sin function
                         float t = 0.5f * Mathf.Sin(sinTime - Mathf.PI / 2f) + 0.5f;
-                        transform.position = Vector3.Lerp(openPos, closedPos, t);
+                        doorPart.position = Vector3.Lerp(openPos, closedPos, t);
                     }
                     else
                     {
@@ -158,30 +137,30 @@ public class DoorScript : MonoBehaviour
 
             case States.Broken:
                 {
-                    if (!brokenBool && transform.position != openPos)
+                    if (!brokenBool && doorPart.position != openPos)
                     {
                         sinTime += Time.deltaTime * speed;
                         sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                         // sin function
                         float t = 0.5f * Mathf.Sin(sinTime - Mathf.PI / 2f) + 0.5f;
-                        transform.position = Vector3.Lerp(closedPos, openPos, t);
+                        doorPart.position = Vector3.Lerp(closedPos, openPos, t);
 
-                        if (transform.position == openPos)
+                        if (doorPart.position == openPos)
                         {
                             brokenBool = true;
                             sinTime = 0.0f;
                         }
 
                     }
-                    else if (brokenBool && transform.position != closedPos)
+                    else if (brokenBool && doorPart.position != closedPos)
                     {
                         sinTime += Time.deltaTime * speed;
                         sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                         // sin function
                         float t = 0.5f * Mathf.Sin(sinTime - Mathf.PI / 2f) + 0.5f;
-                        transform.position = Vector3.Lerp(openPos, closedPos, t);
+                        doorPart.position = Vector3.Lerp(openPos, closedPos, t);
 
-                        if (transform.position == closedPos)
+                        if (doorPart.position == closedPos)
                         {
                             brokenBool = false;
                             sinTime = 0.0f;
@@ -201,7 +180,7 @@ public class DoorScript : MonoBehaviour
     public void OnInteract(InputAction.CallbackContext context)
     {
         // if UI is active you can press button
-        if(DoorUI.activeInHierarchy && hoveringButton)
+        if(doorManager.DoorUI.activeInHierarchy && doorManager.CurrentSelectedDoor == transform.gameObject)
         {
             if (states == States.Open)
             {
@@ -234,9 +213,9 @@ public class DoorScript : MonoBehaviour
         }
     }
 
-    private void GetChildButtons(Transform parent)
+    private void GetChildButtons()
     {
-        foreach (Transform child in parent)
+        foreach (Transform child in transform)
         {
             if (child.gameObject.tag == "DoorButton")
             {
@@ -254,21 +233,5 @@ public class DoorScript : MonoBehaviour
             m.SetColor("_EmissionColor", emisColor);
         }
     }
-
-    // very jank fix for rn
-    private bool checkOtherHovers()
-    {
-        DoorScript[] doors = transform.parent.parent.GetComponentsInChildren<DoorScript>();
-
-        foreach (DoorScript door in doors)
-        {
-            if (door.hoveringButton)
-            {
-                //Debug.Log("hovering");
-                return true;
-            }
-        }
-
-        return false;
-    }
+    
 }

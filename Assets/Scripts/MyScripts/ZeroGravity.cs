@@ -101,6 +101,9 @@ public class ZeroGravity : MonoBehaviour
     private float upDown1D;
     private bool nearBarrier;
 
+    [SerializeField]
+    private DoorManager doorManager;
+
 
     // Track if the movement keys were released
     private bool movementKeysReleased;
@@ -136,6 +139,8 @@ public class ZeroGravity : MonoBehaviour
 
         grabber.sprite = null;
         grabber.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+
+        doorManager = FindObjectOfType<DoorManager>();
     }
 
     // Update is called once per frame
@@ -292,24 +297,31 @@ public class ZeroGravity : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, 3.0f))
         {
-
-
-            if (hit.transform.gameObject.tag == "DoorButton" && lastButton != hit.transform)
+            if (hit.transform.gameObject.tag == "DoorButton" && doorManager.CurrentSelectedDoor != hit.transform.parent.gameObject)
             {
                 Debug.Log(hit.transform.gameObject.tag);
 
                 
-                hit.transform.parent.transform.Find("DoorPart").GetComponent<DoorScript>().HoveringButton = true;
-                lastButton = hit.transform;
+                //hit.transform.parent.transform.GetComponent<DoorScript>().HoveringButton = true;
+                //lastButton = hit.transform;
+
+                doorManager.CurrentSelectedDoor = hit.transform.parent.gameObject;
+                doorManager.DoorUI.SetActive(true);
 
             }
-            else if (hit.transform.gameObject.tag != "DoorButton" && lastButton)
+            else if (hit.transform.gameObject.tag != "DoorButton" && doorManager.CurrentSelectedDoor != null)
             {
-                lastButton.parent.transform.Find("DoorPart").GetComponent<DoorScript>().HoveringButton = false;
-                Debug.Log("now false");
-                lastButton = null;
+                //lastButton.parent.transform.GetComponent<DoorScript>().HoveringButton = false;
+                //Debug.Log("now false");
+                doorManager.DoorUI.SetActive(false);
+                doorManager.CurrentSelectedDoor = null;
             }
           
+        }
+        else
+        {
+            doorManager.DoorUI.SetActive(false);
+            doorManager.CurrentSelectedDoor = null;
         }
 
 
