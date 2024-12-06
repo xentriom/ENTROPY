@@ -15,9 +15,11 @@ public class PickupScript : MonoBehaviour
     private bool canPickUp = false;
 
     public float throwForce = 500f; //force at which the object is thrown at
-    public float pickUpRange = 5f; //how far the player can pickup the object from
+    public float pickUpRange = 10f; //how far the player can pickup the object from
     private GameObject heldObj; //object which we pick up
     private Rigidbody heldObjRb; //rigidbody of object we pick up
+
+    public Collider playerCollider;
 
     private GameObject current;
 
@@ -34,7 +36,7 @@ public class PickupScript : MonoBehaviour
         {
             //perform raycast to check if player is looking at object within pickuprange
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
+            if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
             {
                 //make sure pickup tag is attached
                 if (hit.transform.gameObject.tag == "PickupObject")
@@ -52,7 +54,7 @@ public class PickupScript : MonoBehaviour
         else
         {
 
-            DropObject();
+            //DropObject();
         }
 
     }
@@ -72,23 +74,22 @@ public class PickupScript : MonoBehaviour
         {
             //pass in object hit into the PickUpObject function
             PickUpObject(current);
+            Debug.Log("im here atleast");
         }
         
-
-        Debug.Log("im here atleast");
     }
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        if (heldObj != null) //if player is holding object
-        {
-            MoveObject(); //keep object position at holdPos
-            if (Input.GetKeyDown(KeyCode.Mouse0)) //Mous0 (leftclick) is used to throw, change this if you want another button to be used)
-            {
-                ThrowObject();
-            }
+        //if (heldObj != null) //if player is holding object
+        //{
+        //    MoveObject(); //keep object position at holdPos
+        //    if (Input.GetKeyDown(KeyCode.Mouse0)) //Mous0 (leftclick) is used to throw, change this if you want another button to be used)
+        //    {
+        //        ThrowObject();
+        //    }
 
-        }
+        //}
     }
 
     void PickUpObject(GameObject pickUpObj)
@@ -101,13 +102,13 @@ public class PickupScript : MonoBehaviour
             heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
             //heldObj.layer = LayerNumber; //change the object layer to the holdLayer
             //make sure object doesnt collide with player, it can cause weird bugs
-            Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
+            Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), playerCollider, true);
         }
     }
     void DropObject()
     {
         //re-enable collision with player
-        Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
+        Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), playerCollider, false);
         heldObj.layer = 0; //object assigned back to default layer
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null; //unparent object
@@ -122,7 +123,7 @@ public class PickupScript : MonoBehaviour
     void ThrowObject()
     {
         //same as drop function, but add force to object before undefining it
-        Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
+        Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), playerCollider, false);
         heldObj.layer = 0;
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null;
