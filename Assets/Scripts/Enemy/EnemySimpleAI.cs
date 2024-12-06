@@ -14,6 +14,7 @@ public class EnemySimpleAI : MonoBehaviour
     private Waypoint currentWaypoint;
     private Queue<Waypoint> path = new Queue<Waypoint>();
     private bool isChasingPlayer = false;
+    private bool isMoving = true;
 
     void Start()
     {
@@ -30,38 +31,42 @@ public class EnemySimpleAI : MonoBehaviour
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        if (isChasingPlayer)
+        if (isMoving)
         {
-            if (distanceToPlayer >= escapeDistance)
+            if (isChasingPlayer)
             {
-                isChasingPlayer = false;
+                if (distanceToPlayer >= escapeDistance)
+                {
+                    isChasingPlayer = false;
+                }
+                else
+                {
+                    ChasePlayer();
+                }
+
             }
             else
             {
-                ChasePlayer();
-            }
-
-        }
-        else
-        {
 
 
-            if (distanceToPlayer <= chaseDistance)
-            {
-                isChasingPlayer = true;
-                ChasePlayer();
-            }
-            else if (useRandomRoaming)
-            {
-                isChasingPlayer = false;
-                RoamArea();
-            }
-            else
-            {
-                isChasingPlayer = false;
-                TrackPlayer();
+                if (distanceToPlayer <= chaseDistance)
+                {
+                    isChasingPlayer = true;
+                    ChasePlayer();
+                }
+                else if (useRandomRoaming)
+                {
+                    isChasingPlayer = false;
+                    RoamArea();
+                }
+                else
+                {
+                    isChasingPlayer = false;
+                    TrackPlayer();
+                }
             }
         }
+        
 
     }
 
