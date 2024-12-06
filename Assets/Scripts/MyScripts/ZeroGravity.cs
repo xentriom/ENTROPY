@@ -296,14 +296,28 @@ public class ZeroGravity : MonoBehaviour
         {
             if (hit.transform.gameObject.tag == "DoorButton" && doorManager.CurrentSelectedDoor != hit.transform.parent.gameObject)
             {
-                Debug.Log(hit.transform.gameObject.tag);
+               
 
                 
                 //hit.transform.parent.transform.GetComponent<DoorScript>().HoveringButton = true;
                 //lastButton = hit.transform;
+                GameObject g = hit.transform.parent.gameObject;
+                DoorScript ds = g.GetComponent<DoorScript>();
 
-                doorManager.CurrentSelectedDoor = hit.transform.parent.gameObject;
-                doorManager.DoorUI.SetActive(true);
+                Debug.Log(ds);
+
+                if (ds.DoorState != DoorScript.States.Locked && ds.DoorState != DoorScript.States.Broken)
+                {
+                    doorManager.CurrentSelectedDoor = g;
+                    doorManager.DoorUI.SetActive(true);
+
+                }
+                else
+                {
+                    doorManager.CurrentSelectedDoor = null;
+                }
+
+                
 
             }
             else if (hit.transform.gameObject.tag != "DoorButton" && doorManager.CurrentSelectedDoor != null)

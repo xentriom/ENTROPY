@@ -74,7 +74,6 @@ public class DoorScript : MonoBehaviour
 
         if (states == States.Broken)
         {
-            speed = 2.0f;
             SetButtonColor(yellowBase, yellowEmis);
         }
         else if (states == States.Locked)
@@ -139,7 +138,7 @@ public class DoorScript : MonoBehaviour
                 {
                     if (!brokenBool && doorPart.position != openPos)
                     {
-                        sinTime += Time.deltaTime * speed;
+                        sinTime += Time.deltaTime * 1.5f;
                         sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                         // sin function
                         float t = 0.5f * Mathf.Sin(sinTime - Mathf.PI / 2f) + 0.5f;
@@ -154,7 +153,7 @@ public class DoorScript : MonoBehaviour
                     }
                     else if (brokenBool && doorPart.position != closedPos)
                     {
-                        sinTime += Time.deltaTime * speed;
+                        sinTime += Time.deltaTime * 6.0f;
                         sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                         // sin function
                         float t = 0.5f * Mathf.Sin(sinTime - Mathf.PI / 2f) + 0.5f;
