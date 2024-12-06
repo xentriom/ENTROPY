@@ -323,8 +323,8 @@ MonoBehaviour:
     m_Bits: 64
   grabRange: 4
   grabPadding: 100
-  propelThrust: 200
-  propelOffWallThrust: 50000
+  propelThrust: 150
+  propelOffWallThrust: 16
   grabUIText: {fileID: 635777293464574850}
   grab: {fileID: 1289024538108758660, guid: 62bee993b4da21145a34bb9e2304d3d3, type: 3}
   doorManager: {fileID: 0}
@@ -345,6 +345,7 @@ MonoBehaviour:
   cam: {fileID: 635777293620343980}
   throwForce: 500
   pickUpRange: 5
+  playerCollider: {fileID: 0}
 --- !u!1 &635777292797632697
 GameObject:
   m_ObjectHideFlags: 0

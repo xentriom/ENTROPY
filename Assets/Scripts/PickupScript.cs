@@ -15,7 +15,7 @@ public class PickupScript : MonoBehaviour
     private bool canPickUp = false;
 
     public float throwForce = 500f; //force at which the object is thrown at
-    public float pickUpRange = 10f; //how far the player can pickup the object from
+    public float pickUpRange = 4f; //how far the player can pickup the object from
     private GameObject heldObj; //object which we pick up
     private Rigidbody heldObjRb; //rigidbody of object we pick up
 
@@ -26,7 +26,7 @@ public class PickupScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+            
     }
 
     // Update is called once per frame
@@ -51,11 +51,7 @@ public class PickupScript : MonoBehaviour
                 canPickUp=false;
             }
         }
-        else
-        {
 
-            //DropObject();
-        }
 
     }
 
@@ -70,26 +66,29 @@ public class PickupScript : MonoBehaviour
         //    buttonPressed = true;
         //}
 
-        if (canPickUp)
+        if (canPickUp && heldObj == null)
         {
             //pass in object hit into the PickUpObject function
             PickUpObject(current);
             Debug.Log("im here atleast");
+        }
+        else if (heldObj != null)
+        {
+            Debug.Log("here");
+            DropObject();
         }
         
     }
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        //if (heldObj != null) //if player is holding object
-        //{
-        //    MoveObject(); //keep object position at holdPos
-        //    if (Input.GetKeyDown(KeyCode.Mouse0)) //Mous0 (leftclick) is used to throw, change this if you want another button to be used)
-        //    {
-        //        ThrowObject();
-        //    }
+        if (heldObj != null) //if player is holding object
+        {
+            MoveObject(); //keep object position at holdPos
+            ThrowObject();
 
-        //}
+        }
+     
     }
 
     void PickUpObject(GameObject pickUpObj)
@@ -107,12 +106,14 @@ public class PickupScript : MonoBehaviour
     }
     void DropObject()
     {
+        Debug.Log(heldObj);
         //re-enable collision with player
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), playerCollider, false);
         heldObj.layer = 0; //object assigned back to default layer
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null; //unparent object
         heldObj = null; //undefine game object
+        //current = null;
     }
     void MoveObject()
     {
@@ -129,6 +130,8 @@ public class PickupScript : MonoBehaviour
         heldObj.transform.parent = null;
         heldObjRb.AddForce(cam.transform.forward * throwForce);
         heldObj = null;
+
+        transform.GetComponent<Rigidbody>().AddForce(-cam.transform.forward * (throwForce));
 
     }
 
