@@ -3573,7 +3573,7 @@ PrefabInstance:
 --- !u!4 &861429914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1379403606892743091, guid: 95353133bf21c8640985776ec0422930, type: 3}
-  m_PrefabInstance: {fileID: 1379403606610176297}
+  m_PrefabInstance: {fileID: 2639135460989641389}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &871798148
 PrefabInstance:
@@ -8796,7 +8796,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 918599835804050895, guid: f8ca7f3e73cc31242b75ca156bf086b0, type: 3}
   m_PrefabInstance: {fileID: 2139584135}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1379403606610176297
+--- !u!4 &2264190953514445995 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5274551648669334933, guid: 9c56da26d55396441b458f226af239ba, type: 3}
+  m_PrefabInstance: {fileID: 6223690368249188670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2639135460989641389
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8806,10 +8811,6 @@ PrefabInstance:
     - target: {fileID: 1379403606498741092, guid: 95353133bf21c8640985776ec0422930, type: 3}
       propertyPath: m_Name
       value: Door
-      objectReference: {fileID: 0}
-    - target: {fileID: 1379403606498741094, guid: 95353133bf21c8640985776ec0422930, type: 3}
-      propertyPath: states
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1379403606892743091, guid: 95353133bf21c8640985776ec0422930, type: 3}
       propertyPath: m_RootOrder
@@ -8857,11 +8858,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95353133bf21c8640985776ec0422930, type: 3}
---- !u!4 &2264190953514445995 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5274551648669334933, guid: 9c56da26d55396441b458f226af239ba, type: 3}
-  m_PrefabInstance: {fileID: 6223690368249188670}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6223690368249188670
 PrefabInstance:
   m_ObjectHideFlags: 0
