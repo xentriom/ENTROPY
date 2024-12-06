@@ -18099,7 +18099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7407803550336279741, guid: 3a280f3b663fbe34ea7bca1e0b9328cf, type: 3}
       propertyPath: neighbors.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7407803550336279741, guid: 3a280f3b663fbe34ea7bca1e0b9328cf, type: 3}
       propertyPath: neighbors.Array.data[0]
@@ -18108,7 +18108,11 @@ PrefabInstance:
     - target: {fileID: 7407803550336279741, guid: 3a280f3b663fbe34ea7bca1e0b9328cf, type: 3}
       propertyPath: neighbors.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1963352383}
+    - target: {fileID: 7407803550336279741, guid: 3a280f3b663fbe34ea7bca1e0b9328cf, type: 3}
+      propertyPath: neighbors.Array.data[2]
+      value: 
+      objectReference: {fileID: 722914059}
     - target: {fileID: 8036696551161670863, guid: 3a280f3b663fbe34ea7bca1e0b9328cf, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -23653,7 +23657,7 @@ MonoBehaviour:
   - {fileID: 85204699}
   - {fileID: 216522571}
   - {fileID: 1960652157}
-  connectedDoor: {fileID: 0}
+  connectedDoor: {fileID: 4471650478391054451}
   connectedPanel: {fileID: 469300541}
   maxEnergy: 100
   energySegmentPrefab: {fileID: 7048437698274024873, guid: 3fd2401afcb26e346904f43d13a14ef1, type: 3}
@@ -25423,7 +25427,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453117803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -138.53, y: 0, z: -4.2}
+  m_LocalPosition: {x: -138.53, y: 0, z: -3.27}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1643036174}
@@ -25462,8 +25466,8 @@ MonoBehaviour:
   escapeDistance: 20
   player: {fileID: 702520030}
   startingWaypoint: {fileID: 1868510325}
-  door: {fileID: 0}
-  useRandomRoaming: 1
+  door: {fileID: 4471650478391054449}
+  useRandomRoaming: 0
 --- !u!135 &1453117807
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -37976,10 +37980,6 @@ MonoBehaviour:
     m_ActionName: PlayerControls/Roll[/Keyboard/q,/Keyboard/e]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 5a878f59-b60d-4bd5-988a-a9212430df71
-    m_ActionName: PlayerControls/LookMovement[/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 2f5c2291-1bf2-4ff8-b01f-ee34141f6667
     m_ActionName: PlayerControls/Grab[/Mouse/rightButton]
   - m_PersistentCalls:
@@ -38022,6 +38022,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b57040e2-355a-4bb5-902a-ae436699338b
     m_ActionName: UI/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 81257672-9649-464c-ba9a-1b6d161e81ae
+    m_ActionName: PlayerControls/MouseX[/Mouse/delta/x]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cfd5f24f-4179-4e92-b48b-f5d9abb39e93
+    m_ActionName: PlayerControls/MouseY[/Mouse/delta/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bc57e8e3-cabd-4898-b2f6-3ba6914cf90f
+    m_ActionName: PlayerControls/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e31e4715-29c6-4d9f-b958-bb29b0ac175c
+    m_ActionName: PlayerControls/Throw[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls

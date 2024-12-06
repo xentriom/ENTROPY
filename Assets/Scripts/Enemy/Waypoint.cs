@@ -14,7 +14,7 @@ public class Waypoint : MonoBehaviour
     {
         // Draw a sphere at the waypoint's position for easy identification
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, 0.2f);
+        //Gizmos.DrawSphere(transform.position, 0.2f);
 
         // Draw default green lines to all neighbor waypoints
         Gizmos.color = defaultLineColor;
