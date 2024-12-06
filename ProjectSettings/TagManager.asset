@@ -7,6 +7,7 @@ TagManager:
   - Grabbable
   - Barrier
   - DoorButton
+  - PickupObject
   layers:
   - Default
   - TransparentFX

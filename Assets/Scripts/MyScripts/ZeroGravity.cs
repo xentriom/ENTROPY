@@ -38,9 +38,6 @@ public class ZeroGravity : MonoBehaviour
     private float rotationVert = 0.0f;
     private float rotationZ = 0.0f;
 
-    // door interaction
-    private Transform lastButton;
-
     public GameObject respawnLoc;
 
 /*    // Smooth rotation variables

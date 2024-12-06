@@ -51,14 +51,6 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""LookMovement"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""5a878f59-b60d-4bd5-988a-a9212430df71"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Grab"",
                     ""type"": ""Button"",
                     ""id"": ""2f5c2291-1bf2-4ff8-b01f-ee34141f6667"",
@@ -67,9 +59,41 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""MouseX"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""81257672-9649-464c-ba9a-1b6d161e81ae"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""MouseY"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""cfd5f24f-4179-4e92-b48b-f5d9abb39e93"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc57e8e3-cabd-4898-b2f6-3ba6914cf90f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""0d051d0c-c9b7-4f11-b18e-0c874d16e3be"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""e31e4715-29c6-4d9f-b958-bb29b0ac175c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -342,28 +366,6 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cb6a5f09-43b0-4d1d-9166-7cef33e8b455"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LookMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""eced053d-190e-46d0-b2da-cc2e2fcdf6e9"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LookMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""5e29cae7-0556-4613-846d-0e8949a6ef43"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
@@ -381,6 +383,72 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e17436ab-3211-4cd9-8154-6c73dc55a26e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9cd0f7d-70d9-4734-af52-d6bf1184f033"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee5c5623-188d-4fe9-ae11-c7f628b6e3ac"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f1112af-29e1-4bb4-b456-58ae0f44b950"",
+                    ""path"": ""<Gamepad>/leftStick/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1abddbf-4b35-49ec-bb44-04c75fc33496"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50db193d-0adc-473b-a36e-9f4f5cbcb7c0"",
+                    ""path"": ""<Gamepad>/rightStick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseX"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -544,9 +612,12 @@ public class @PlayerController : IInputActionCollection, IDisposable
         m_PlayerControls_Strafe = m_PlayerControls.FindAction("Strafe", throwIfNotFound: true);
         m_PlayerControls_UpDown = m_PlayerControls.FindAction("Up-Down", throwIfNotFound: true);
         m_PlayerControls_Roll = m_PlayerControls.FindAction("Roll", throwIfNotFound: true);
-        m_PlayerControls_LookMovement = m_PlayerControls.FindAction("LookMovement", throwIfNotFound: true);
         m_PlayerControls_Grab = m_PlayerControls.FindAction("Grab", throwIfNotFound: true);
+        m_PlayerControls_MouseX = m_PlayerControls.FindAction("MouseX", throwIfNotFound: true);
+        m_PlayerControls_MouseY = m_PlayerControls.FindAction("MouseY", throwIfNotFound: true);
+        m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
         m_PlayerControls_Interact = m_PlayerControls.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerControls_Throw = m_PlayerControls.FindAction("Throw", throwIfNotFound: true);
         // Dialogue
         m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
         m_Dialogue_ContinueDialogue = m_Dialogue.FindAction("ContinueDialogue", throwIfNotFound: true);
@@ -612,9 +683,12 @@ public class @PlayerController : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Strafe;
     private readonly InputAction m_PlayerControls_UpDown;
     private readonly InputAction m_PlayerControls_Roll;
-    private readonly InputAction m_PlayerControls_LookMovement;
     private readonly InputAction m_PlayerControls_Grab;
+    private readonly InputAction m_PlayerControls_MouseX;
+    private readonly InputAction m_PlayerControls_MouseY;
+    private readonly InputAction m_PlayerControls_Pause;
     private readonly InputAction m_PlayerControls_Interact;
+    private readonly InputAction m_PlayerControls_Throw;
     public struct PlayerControlsActions
     {
         private @PlayerController m_Wrapper;
@@ -623,9 +697,12 @@ public class @PlayerController : IInputActionCollection, IDisposable
         public InputAction @Strafe => m_Wrapper.m_PlayerControls_Strafe;
         public InputAction @UpDown => m_Wrapper.m_PlayerControls_UpDown;
         public InputAction @Roll => m_Wrapper.m_PlayerControls_Roll;
-        public InputAction @LookMovement => m_Wrapper.m_PlayerControls_LookMovement;
         public InputAction @Grab => m_Wrapper.m_PlayerControls_Grab;
+        public InputAction @MouseX => m_Wrapper.m_PlayerControls_MouseX;
+        public InputAction @MouseY => m_Wrapper.m_PlayerControls_MouseY;
+        public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
         public InputAction @Interact => m_Wrapper.m_PlayerControls_Interact;
+        public InputAction @Throw => m_Wrapper.m_PlayerControls_Throw;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -647,15 +724,24 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Roll.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRoll;
                 @Roll.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRoll;
                 @Roll.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRoll;
-                @LookMovement.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLookMovement;
-                @LookMovement.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLookMovement;
-                @LookMovement.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLookMovement;
                 @Grab.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnGrab;
                 @Grab.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnGrab;
                 @Grab.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnGrab;
+                @MouseX.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMouseX;
+                @MouseX.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMouseX;
+                @MouseX.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMouseX;
+                @MouseY.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMouseY;
+                @MouseY.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMouseY;
+                @MouseY.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMouseY;
+                @Pause.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
                 @Interact.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteract;
+                @Throw.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnThrow;
+                @Throw.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnThrow;
+                @Throw.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnThrow;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -672,15 +758,24 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Roll.started += instance.OnRoll;
                 @Roll.performed += instance.OnRoll;
                 @Roll.canceled += instance.OnRoll;
-                @LookMovement.started += instance.OnLookMovement;
-                @LookMovement.performed += instance.OnLookMovement;
-                @LookMovement.canceled += instance.OnLookMovement;
                 @Grab.started += instance.OnGrab;
                 @Grab.performed += instance.OnGrab;
                 @Grab.canceled += instance.OnGrab;
+                @MouseX.started += instance.OnMouseX;
+                @MouseX.performed += instance.OnMouseX;
+                @MouseX.canceled += instance.OnMouseX;
+                @MouseY.started += instance.OnMouseY;
+                @MouseY.performed += instance.OnMouseY;
+                @MouseY.canceled += instance.OnMouseY;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Throw.started += instance.OnThrow;
+                @Throw.performed += instance.OnThrow;
+                @Throw.canceled += instance.OnThrow;
             }
         }
     }
@@ -814,9 +909,12 @@ public class @PlayerController : IInputActionCollection, IDisposable
         void OnStrafe(InputAction.CallbackContext context);
         void OnUpDown(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
-        void OnLookMovement(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);
+        void OnMouseX(InputAction.CallbackContext context);
+        void OnMouseY(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
     }
     public interface IDialogueActions
     {
